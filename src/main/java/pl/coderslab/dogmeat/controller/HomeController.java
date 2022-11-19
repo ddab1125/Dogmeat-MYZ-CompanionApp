@@ -13,9 +13,4 @@ public class HomeController {
         return "home";
     }
 
-    @GetMapping("/about")
-    @ResponseBody
-    public String about() {
-        return "some info for logged in user";
-    }
 }

@@ -3,6 +3,7 @@ package pl.coderslab.dogmeat.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,8 @@ public class User {
     @Column(nullable = false, unique = true, length = 60)
     private String username;
     private String password;
+    @Email
+    private String email;
     private int enabled;
 
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
