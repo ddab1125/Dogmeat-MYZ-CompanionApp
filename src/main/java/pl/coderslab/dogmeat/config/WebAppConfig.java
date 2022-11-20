@@ -1,4 +1,4 @@
-package pl.coderslab.dogmeat;
+package pl.coderslab.dogmeat.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

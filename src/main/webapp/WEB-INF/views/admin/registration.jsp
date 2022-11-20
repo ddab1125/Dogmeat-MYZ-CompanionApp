@@ -9,37 +9,36 @@
     <title>Rejestracja <spring:message code="app.title"/></title>
 </head>
 <body>
-<form:form action="/user/register" method="POST" modelAttribute="user">
+
+<form:form action="/user/register" method="POST" modelAttribute="userDto">
     <div>
         <label>Nazwa użytkownika:</label>
         <form:input path="username" type="text"/>
-        <form:errors path="username" > <br>
-            <span>Nazwa użytkownika nie może być pusta</span>
-        </form:errors>
+        <form:errors path="username"/> <br>
+
     </div>
     <div>
         <label>Email:</label>
         <form:input path="email" type="email"/>
-        <form:errors path="email" > <br>
-            <span>Email nie może być pusty</span>
-        </form:errors>
+        <form:errors path="email"/> <br>
+
     </div>
     <div>
         <label>Hasło:</label>
         <form:input path="password" type="password"/>
-        <form:errors path="password"> <br>
-            <span>Hasło nie może być puste</span>
-        </form:errors>
+        <form:errors path="password"/>
+        <form:errors path="password2"/>
+        <br>
+
     </div>
     <div>
         <label>Powtórz hasło</label>
         <form:input path="password2" type="password"/>
-        <form:errors path="password2" > <br>
-            <span>Błąd</span>
-        </form:errors>
+        <form:errors path="password2"/>
     </div>
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     <input type="submit" value="Zarejestruj Się">
 </form:form>
+
 </body>
 </html>

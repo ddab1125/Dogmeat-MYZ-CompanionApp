@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,15 +22,16 @@ public class RegisterController {
     private final UserService userService;
 
     @GetMapping("/user/register")
-    public String registrationForm(WebRequest request, Model model) {
+    public String registrationForm(Model model) {
         UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
+        model.addAttribute("userDto", userDto);
         return "admin/registration";
     }
 
 
     @PostMapping("/user/register")
-    public String registerNewUser(@ModelAttribute("user") @Valid UserDto userDto, BindingResult result) {
+    public String registerNewUser(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result) {
+
         if (result.hasErrors()) {
             return "/admin/registration";
         }
