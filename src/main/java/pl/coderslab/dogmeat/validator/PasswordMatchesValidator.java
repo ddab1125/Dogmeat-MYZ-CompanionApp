@@ -1,6 +1,6 @@
 package pl.coderslab.dogmeat.validator;
 
-import pl.coderslab.dogmeat.Dto.UserDto;
+import pl.coderslab.dogmeat.user.Dto.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

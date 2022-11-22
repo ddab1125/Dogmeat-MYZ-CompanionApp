@@ -1,9 +1,9 @@
-package pl.coderslab.dogmeat.entity;
+package pl.coderslab.dogmeat.user.entity;
 
 import lombok.Data;
+import pl.coderslab.dogmeat.role.entity.Role;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import java.util.Set;
 
 @Entity

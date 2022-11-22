@@ -1,33 +1,34 @@
-package pl.coderslab.dogmeat.service;
+package pl.coderslab.dogmeat.user.service;
 
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.coderslab.dogmeat.Dto.UserDto;
-import pl.coderslab.dogmeat.entity.Role;
-import pl.coderslab.dogmeat.entity.User;
-import pl.coderslab.dogmeat.repository.RoleRepository;
-import pl.coderslab.dogmeat.repository.UserRepository;
+import pl.coderslab.dogmeat.user.Dto.UserDto;
+import pl.coderslab.dogmeat.role.entity.Role;
+import pl.coderslab.dogmeat.user.entity.User;
+import pl.coderslab.dogmeat.role.repository.RoleRepository;
+import pl.coderslab.dogmeat.user.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 @Service
 @Data
-public class UserServiceImpl implements UserService {
+@RequiredArgsConstructor
+public class UserService{
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Override
+
     public User findByUsername(String name) {
-        return userRepository.findByUsername(name);
+        return userRepository.findUserByUsername(name);
     }
 
-    @Override
+
     public void saveUser(UserDto userDto) {
         User user = new User();
         user.setUsername(userDto.getUsername());

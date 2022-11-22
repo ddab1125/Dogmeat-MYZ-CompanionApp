@@ -1,4 +1,4 @@
-package pl.coderslab.dogmeat.Dto;
+package pl.coderslab.dogmeat.user.Dto;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

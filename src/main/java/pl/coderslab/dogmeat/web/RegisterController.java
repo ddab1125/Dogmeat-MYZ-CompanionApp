@@ -1,18 +1,15 @@
-package pl.coderslab.dogmeat.controller;
+package pl.coderslab.dogmeat.web;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.context.request.WebRequest;
-import pl.coderslab.dogmeat.Dto.UserDto;
-import pl.coderslab.dogmeat.service.UserService;
+import pl.coderslab.dogmeat.user.Dto.UserDto;
+import pl.coderslab.dogmeat.user.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @Controller
