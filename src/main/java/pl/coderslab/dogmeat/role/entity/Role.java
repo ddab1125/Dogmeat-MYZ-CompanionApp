@@ -1,4 +1,4 @@
-package pl.coderslab.dogmeat.entity;
+package pl.coderslab.dogmeat.role.entity;
 
 import lombok.Data;
 
@@ -12,5 +12,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+
+
 
 }

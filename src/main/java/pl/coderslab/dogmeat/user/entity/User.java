@@ -1,6 +1,7 @@
-package pl.coderslab.dogmeat.entity;
+package pl.coderslab.dogmeat.user.entity;
 
 import lombok.Data;
+import pl.coderslab.dogmeat.role.entity.Role;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,6 +16,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 60)
     private String username;
     private String password;
+    private String email;
     private int enabled;
 
     @ManyToMany (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
