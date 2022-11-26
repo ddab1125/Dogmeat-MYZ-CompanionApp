@@ -7,8 +7,10 @@
     <title><spring:message code="app.title"/> Admin</title>
 </head>
 <body>
+<jsp:include page="../fragments/navbar.jsp"/>
+
 <form action="<c:url value="/logout"/>" method="post">
-    <input class="fa fa-id-badge" type="submit" value="Wyloguj">
+    <input type="submit" value="Wyloguj">
     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 </form>
 </body>

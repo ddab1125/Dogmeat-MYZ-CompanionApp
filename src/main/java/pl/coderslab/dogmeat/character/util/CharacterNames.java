@@ -1,9 +1,9 @@
-package pl.coderslab.dogmeat.character;
+package pl.coderslab.dogmeat.character.util;
 
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import pl.coderslab.dogmeat.character.enums.CharacterRole;
+
 
 import java.util.List;
 import java.util.Random;

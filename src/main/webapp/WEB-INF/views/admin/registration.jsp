@@ -1,21 +1,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="form"
-           uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
     <title>Rejestracja <spring:message code="app.title"/></title>
 </head>
 <body>
+<jsp:include page="../fragments/navbar.jsp"/>
 
-<form:form action="/user/register" method="POST" modelAttribute="userDto">
+<form:form action="/register" method="POST" modelAttribute="userDto">
     <div>
         <label>Nazwa użytkownika:</label>
         <form:input path="username" type="text"/>
         <form:errors path="username"/> <br>
-
     </div>
     <div>
         <label>Email:</label>

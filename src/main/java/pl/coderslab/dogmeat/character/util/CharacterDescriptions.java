@@ -1,4 +1,4 @@
-package pl.coderslab.dogmeat.character;
+package pl.coderslab.dogmeat.character.util;
 
 
 import lombok.Data;
