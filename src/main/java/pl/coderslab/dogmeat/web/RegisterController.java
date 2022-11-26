@@ -1,5 +1,8 @@
 package pl.coderslab.dogmeat.web;
 
+
+
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +21,8 @@ public class RegisterController {
 
     private final UserService userService;
 
-    @GetMapping("/user/register")
+
+    @GetMapping("/register")
     public String registrationForm(Model model) {
         UserDto userDto = new UserDto();
         model.addAttribute("userDto", userDto);
@@ -26,13 +30,14 @@ public class RegisterController {
     }
 
 
-    @PostMapping("/user/register")
+    @PostMapping("/register")
     public String registerNewUser(@ModelAttribute("userDto") @Valid UserDto userDto, BindingResult result) {
+
 
         if (result.hasErrors()) {
             return "/admin/registration";
         }
-    userService.saveUser(userDto);
+        userService.saveUser(userDto);
         return "/home";
     }
 }

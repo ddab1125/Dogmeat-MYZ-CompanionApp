@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <head>
@@ -9,30 +10,15 @@
 <body>
 <jsp:include page="fragments/navbar.jsp"/>
 
-<div class="center">
-    <h1 style="text-align: center">
-        ${mChar.name} - ${mChar.profession}
-    </h1>
-    <h2 style="text-align: center">${mChar.description}</h2>
+<jsp:include page="fragments/characterdetails.jsp"/>
 
-    <table class="center" id="skillTable">
-        <tr>
-            <td>Siła</td>
-            <td>${mChar.strengthValue}</td>
-        </tr>
-        <tr>
-            <td>Zręczność</td>
-            <td>${mChar.agilityValue}</td>
-        </tr>
-        <tr>
-            <td>Spryt</td>
-            <td>${mChar.witsValue}</td>
-        </tr>
-        <tr>
-            <td>Empatia</td>
-            <td>${mChar.empathyValue}</td>
-        </tr>
-    </table>
-</div>
+<sec:authorize access="isAuthenticated()">
+    <div>
+        <form action="<c:url value="/char/random"/>" method="POST">
+            <input class="center" type="submit" value="Dodaj do teczki">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        </form>
+    </div>
+</sec:authorize>
 </body>
 </html>
