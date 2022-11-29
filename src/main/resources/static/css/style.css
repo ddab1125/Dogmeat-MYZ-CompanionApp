@@ -58,3 +58,41 @@
     background-color: #555;
     color: white;
 }
+
+datalist {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    writing-mode: horizontal-tb;
+    width: 200px;
+}
+
+option {
+    padding: 0;
+}
+
+input[type="range"] {
+    width: 200px;
+    margin: 0;
+}
+
+input[type="number"] {
+    width: 50px;
+}
+
+.mchar-attributes {
+    width: 300px;
+    float: left;
+}
+
+.mchar-basic {
+    text-align:left;
+    width:150px;
+    display:flex;
+}
+
+.mchar-skills {
+    display: block;
+    position: absolute;
+    top: 40%;
+}

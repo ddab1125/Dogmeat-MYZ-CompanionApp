@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
+import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.repository.CharacterRepository;
 import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
@@ -19,6 +20,8 @@ public class CharacterController {
 
     private final CharacterService characterService;
     private final CharacterRepository characterRepository;
+
+
 
 
     @GetMapping("/random")
