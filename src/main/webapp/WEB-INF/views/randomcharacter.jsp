@@ -10,7 +10,7 @@
 <body>
 <jsp:include page="fragments/navbar.jsp"/>
 
-<jsp:include page="fragments/characterdetails.jsp"/>
+<jsp:include page="fragments/charactersimpledetails.jsp"/>
 
 <sec:authorize access="isAuthenticated()">
     <div>
