@@ -29,6 +29,7 @@
             </tr>
         </c:forEach>
     </table>
+    <button><a href="/user/character/new">Nowa Postać</a></button>
 </div>
 </body>
 </html>

@@ -24,11 +24,29 @@ public class MCharacter {
     private String description;
 
 
-
     private int strengthValue;
     private int agilityValue;
     private int witsValue;
     private int empathyValue;
+
+    private int damageValue;
+    private int fatigueValue;
+    private int confusionValue;
+    private int doubtValue;
+
+    private int endureValue;
+    private int forceValue;
+    private int fightValue;
+    private int sneakValue;
+    private int moveValue;
+    private int shootValue;
+    private int scoutValue;
+    private int comprehendValue;
+    private int knowTheZoneValue;
+    private int senseEmotionValue;
+    private int manipulateValue;
+    private int healValue;
+
 
 
 
@@ -61,7 +79,7 @@ public class MCharacter {
 
         for (int stat : stats) {
             if (stat < 2) {
-               return randomAttributes();
+                return randomAttributes();
             }
 
         }

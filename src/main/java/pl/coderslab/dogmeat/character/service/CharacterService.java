@@ -13,6 +13,7 @@ import java.util.Random;
 @Data
 public class CharacterService {
 
+
     public MCharacter generateCharacter() {
         CharacterRole[] roles = CharacterRole.values();
         Random random = new Random();
