@@ -1,6 +1,7 @@
 package pl.coderslab.dogmeat.character.service;
 
 import lombok.Data;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import pl.coderslab.dogmeat.character.util.CharacterNames;
 import pl.coderslab.dogmeat.character.util.CharacterDescriptions;
@@ -24,6 +25,10 @@ public class CharacterService {
         mCharacter.setName(CharacterNames.getRandomName());
         mCharacter.setDescription(CharacterDescriptions.getRandomDescription());
         return mCharacter;
+    }
+
+    private void addEqToCharacter(MCharacter mCharacter) {
+        Hibernate.initialize(mCharacter.getEquipment());
     }
 
 

@@ -13,8 +13,11 @@ import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
 import pl.coderslab.dogmeat.character.repository.CharacterRepository;
 import pl.coderslab.dogmeat.character.service.CharacterService;
+import pl.coderslab.dogmeat.equipment.entity.Equipment;
+import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -23,7 +26,8 @@ import java.util.List;
 public class UserController {
 
     private final CharacterRepository characterRepository;
-    private final CharacterService characterService;
+    private final EquipmentService equipmentService;
+
 
 
     @ModelAttribute("mCharacters")
@@ -41,6 +45,7 @@ public class UserController {
     }
 
 
+
     @RequestMapping("/dashboard")
     public String userDashboard() {
 
@@ -54,9 +59,10 @@ public class UserController {
     }
 
     @RequestMapping("/character/details/{mCharId}")
-
     public String characterDetails(@PathVariable("mCharId") long id, Model model) {
+        model.addAttribute("eqList", characterRepository.findMCharacterById(id).getEquipment());
         model.addAttribute("mCharDetails", characterRepository.findMCharacterById(id));
+        model.addAttribute("eq", new Equipment());
 
         return ("/user/characterdetails");
     }
@@ -79,25 +85,62 @@ public class UserController {
         model.addAttribute("mChar", new MCharacter());
 
         return ("/fragments/charactersheet");
+
     }
 
 
     @PostMapping("/character/new")
-    public String saveNewCharacter(MCharacter mChar, @AuthenticationPrincipal CurrentUser currentUser, Model model) {
+    public String saveNewCharacter(MCharacter mChar,
+                                   @AuthenticationPrincipal CurrentUser currentUser,
+                                   Model model,
+                                   @ModelAttribute("eq") Equipment eq,
+                                   @ModelAttribute("mCharDetails") MCharacter mCharacterDetails) {
+
+        List<Equipment> equipmentList;
+
         if (mChar.getId() != null) {
+            model.addAttribute("eqList", characterRepository.findMCharacterById(mChar.getId()).getEquipment());
             MCharacter carrier = characterRepository.findMCharacterById(mChar.getId());
             mChar.setName(carrier.getName());
             mChar.setProfession(carrier.getProfession());
             mChar.setUser(currentUser.getUser());
+            mChar.setEquipment(carrier.getEquipment());
             characterRepository.save(mChar);
             model.addAttribute("mCharDetails", mChar);
             return ("/user/characterdetails");
         }
-
+        model.addAttribute("eqList", equipmentList = new ArrayList<>());
         mChar.setUser(currentUser.getUser());
         characterRepository.save(mChar);
+        model.addAttribute("mCharDetails", mChar);
 
-        return ("redirect:/user/list");
+        return ("/user/characterdetails");
+    }
+
+
+    @PostMapping("/character/equipment")
+    public String saveEqItem(@ModelAttribute("eq") Equipment eq,
+                             @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
+                             Model model,
+                             @RequestParam Long mCharId) {
+
+        MCharacter mCharacter = characterRepository.findMCharacterById(mCharId);
+        model.addAttribute("eqList", characterRepository.findMCharacterById(mCharId).getEquipment());
+        model.addAttribute("mCharDetails", mCharacter);
+        List<Equipment> equipmentList;
+
+        if (mCharacter.getEquipment() == null) {
+            equipmentList = new ArrayList<>();
+
+        } else {
+            equipmentList = mCharacter.getEquipment();
+        }
+        equipmentList.add(eq);
+        equipmentService.saveItem(eq);
+        mCharacter.setEquipment(equipmentList);
+        characterRepository.save(mCharacter);
+
+        return ("/user/characterdetails");
     }
 
 

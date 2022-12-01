@@ -13,6 +13,8 @@
 
 <div>
     <form:form action="/user/character/new" method="POST" modelAttribute="mChar">
+        <input type="submit">
+
         <div class="mchar-attributes">
             <table>
                 <thead>
@@ -91,38 +93,12 @@
             </thead>
             <tbody>
             <tr>
-                <td>1</td>
+                <td><form:input path="equipment" type="text"></form:input></td>
             </tr>
             <tr>
-                <td>2</td>
+                <td><spring:message code="basic.ammo"/><input type="number"></td>
             </tr>
-            <tr>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td>6</td>
-            </tr>
-            <tr>
-                <td>7</td>
-            </tr>
-            <tr>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td>9</td>
-            </tr>
-            <tr>
-                <td>10</td>
-            </tr>
-            <tr>
-                <td><spring:message code="basic.ammo"/></td>
-            </tr>
+
             </tbody>
         </table>
 
@@ -183,26 +159,15 @@
                                                                         max="5"/></td>
                 </tr>
                 <tr>
-                    <td><c:choose>
-                        <c:when test="${mChar.profession == Osiłek}"><spring:message code="skill.intimidate"/></c:when>
-                        <c:when test="${mChar.profession == Monter}"><spring:message code="skill.jurryrig"/></c:when>
-                        <c:when test="${mChar.profession == Szperacz}"><spring:message code="skill.findthepath"/></c:when>
-                        <c:when test="${mChar.profession == Macher}"><spring:message code="skill.makeadeal"/></c:when>
-                        <c:when test="${mChar.profession == Psiarz}"><spring:message code="skill.sicadog"/></c:when>
-                        <c:when test="${mChar.profession == Kronikarz}"><spring:message code="skill.inspire"/></c:when>
-                        <c:when test="${mChar.profession == Szef}"><spring:message code="skill.command"/></c:when>
-                        <c:when test="${mChar.profession == Robol}"><spring:message code="skill.shakeitoff"/></c:when>
-                        <c:otherwise>Błąd</c:otherwise>
-                    </c:choose>
-                        <form:input path="professionSkillValue" type="number" min="0"
-                                    max="5"/></td>
+                    <td><spring:message code="skill.roleSkill"/> <form:input path="professionSkillValue" type="number"
+                                                                             min="0"
+                                                                             max="5"/></td>
                 </tr>
                 </tbody>
             </table>
         </div>
 
 
-        <input type="submit">
     </form:form>
 </div>
 
