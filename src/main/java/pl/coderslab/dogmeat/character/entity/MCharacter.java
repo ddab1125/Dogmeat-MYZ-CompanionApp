@@ -46,7 +46,7 @@ public class MCharacter {
     private int senseEmotionValue;
     private int manipulateValue;
     private int healValue;
-
+    private int professionSkillValue;
 
 
 

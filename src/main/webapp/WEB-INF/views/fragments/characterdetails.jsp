@@ -132,6 +132,21 @@
                 <td><spring:message code="skill.heal"/> <form:input path="healValue" type="number" min="0"
                                                                     max="5"/></td>
             </tr>
+            <tr>
+                <td><c:choose>
+                    <c:when test="${mCharDetails.profession == 'Osiłek'}"><spring:message code="skill.intimidate"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Monter'}"><spring:message code="skill.jurryrig"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Szperacz'}"><spring:message code="skill.findthepath"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Macher'}"><spring:message code="skill.makeadeal"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Psiarz'}"><spring:message code="skill.sicadog"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Kronikarz'}"><spring:message code="skill.inspire"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Szef'}"><spring:message code="skill.command"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Robol'}"><spring:message code="skill.shakeitoff"/></c:when>
+                    <c:otherwise>Błąd</c:otherwise>
+                </c:choose>
+                    <form:input path="professionSkillValue" type="number" min="0"
+                                max="5"/></td>
+            </tr>
             </tbody>
         </table>
     </div>

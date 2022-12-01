@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import pl.coderslab.dogmeat.character.SimpleMCharacterDto;
+import pl.coderslab.dogmeat.character.dto.SimpleMCharacterDto;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
