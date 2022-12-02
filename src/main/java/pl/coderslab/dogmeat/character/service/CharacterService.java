@@ -3,11 +3,13 @@ package pl.coderslab.dogmeat.character.service;
 import lombok.Data;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import pl.coderslab.dogmeat.character.repository.CharacterRepository;
 import pl.coderslab.dogmeat.character.util.CharacterNames;
 import pl.coderslab.dogmeat.character.util.CharacterDescriptions;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 
+import java.util.List;
 import java.util.Random;
 
 @Service
@@ -27,9 +29,9 @@ public class CharacterService {
         return mCharacter;
     }
 
-    private void addEqToCharacter(MCharacter mCharacter) {
-        Hibernate.initialize(mCharacter.getEquipment());
-    }
+//    private void addEqToCharacter(MCharacter mCharacter) {
+//        Hibernate.initialize(mCharacter.getEquipment());
+//    }
 
 
 }

@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
+import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.user.entity.User;
 
 
@@ -98,4 +99,8 @@ public class MCharacter {
     @OneToMany()
     @JoinColumn(name = "mchar_id")
     private List<Equipment> equipment = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name ="mchar_id")
+    private List<Mutation> mutations = new ArrayList<>();
 }

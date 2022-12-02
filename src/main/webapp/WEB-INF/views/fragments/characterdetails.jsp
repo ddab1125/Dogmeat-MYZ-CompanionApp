@@ -173,7 +173,8 @@
     <tbody>
     <c:forEach items="${eqList}" var="item">
         <tr>
-            <td>${item.itemName}</td>
+            <td>${item.itemName} <a href="/user/character/equipment/delete/${mCharDetails.id}/${item.id}"><spring:message
+                    code="basic.delete"/></a></td>
         </tr>
     </c:forEach>
     <tr>
@@ -184,7 +185,7 @@
 </table>
 
 <form:form action="/user/character/equipment" method="POST" modelAttribute="eq">
-<form:input path="itemName" type="text"/>
+    <form:input path="itemName" type="text"/>
     <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
     <button type="submit" name="submitEq"><spring:message code="basic.addtoeq"/></button>
 </form:form>
