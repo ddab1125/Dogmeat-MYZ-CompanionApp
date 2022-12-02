@@ -3,15 +3,22 @@ package pl.coderslab.dogmeat.character.entity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.dogmeat.equipment.entity.Equipment;
+import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.user.entity.User;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 @Entity
 @Data
 @RequiredArgsConstructor
+@Transactional
 public class MCharacter {
 
     @Id
@@ -46,7 +53,7 @@ public class MCharacter {
     private int senseEmotionValue;
     private int manipulateValue;
     private int healValue;
-
+    private int professionSkillValue;
 
 
 
@@ -87,6 +94,13 @@ public class MCharacter {
     }
 
     @ManyToOne
-    @JoinColumn()
     private User user;
+
+    @OneToMany()
+    @JoinColumn(name = "mchar_id")
+    private List<Equipment> equipment = new ArrayList<>();
+
+    @OneToMany
+    @JoinColumn(name ="mchar_id")
+    private List<Mutation> mutations = new ArrayList<>();
 }

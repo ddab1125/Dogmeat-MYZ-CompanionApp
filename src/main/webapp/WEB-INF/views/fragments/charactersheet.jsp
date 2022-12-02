@@ -13,6 +13,8 @@
 
 <div>
     <form:form action="/user/character/new" method="POST" modelAttribute="mChar">
+        <input type="submit">
+
         <div class="mchar-attributes">
             <table>
                 <thead>
@@ -77,11 +79,28 @@
                 </form:select>
             </label>
         </div>
+
         <div>
             <label><spring:message code="basic.desc"/> <br>
                 <form:textarea path="description" style="width: 420px"/>
             </label>
         </div>
+        <table>
+            <thead>
+            <tr>
+                <th><spring:message code="basic.eq"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><form:input path="equipment" type="text"></form:input></td>
+            </tr>
+            <tr>
+                <td><spring:message code="basic.ammo"/><input type="number"></td>
+            </tr>
+
+            </tbody>
+        </table>
 
         <div class="mchar-skills">
             <table>
@@ -139,12 +158,16 @@
                     <td><spring:message code="skill.heal"/> <form:input path="healValue" type="number" min="0"
                                                                         max="5"/></td>
                 </tr>
+                <tr>
+                    <td><spring:message code="skill.roleSkill"/> <form:input path="professionSkillValue" type="number"
+                                                                             min="0"
+                                                                             max="5"/></td>
+                </tr>
                 </tbody>
             </table>
         </div>
 
 
-        <input type="submit">
     </form:form>
 </div>
 

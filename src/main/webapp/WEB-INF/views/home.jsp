@@ -8,10 +8,7 @@
     <title><spring:message code="app.title"/></title>
 </head>
 <body>
-<jsp:include page="fragments/navbar.jsp"/>
-
-
-
+    <jsp:include page="fragments/navbar.jsp"/>
 
 
 </body>

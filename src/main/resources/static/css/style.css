@@ -80,19 +80,19 @@ input[type="number"] {
     width: 50px;
 }
 
-.mchar-attributes {
-    width: 300px;
-    float: left;
-}
+/*.mchar-attributes {*/
+/*    width: 300px;*/
+/*    float: left;*/
+/*}*/
 
-.mchar-basic {
-    text-align:left;
-    width:150px;
-    display:flex;
-}
+/*.mchar-basic {*/
+/*    text-align:left;*/
+/*    width:150px;*/
+/*    display:flex;*/
+/*}*/
 
-.mchar-skills {
-    display: block;
-    position: absolute;
-    top: 40%;
-}
+/*.mchar-skills {*/
+/*    display: block;*/
+/*    position: absolute;*/
+/*    top: 40%;*/
+/*}*/

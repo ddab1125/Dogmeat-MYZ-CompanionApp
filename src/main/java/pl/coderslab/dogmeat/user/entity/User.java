@@ -1,7 +1,6 @@
 package pl.coderslab.dogmeat.user.entity;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import pl.coderslab.dogmeat.role.entity.Role;
 
 import javax.persistence.*;

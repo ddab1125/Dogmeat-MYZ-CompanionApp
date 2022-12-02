@@ -4,7 +4,6 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-
 <form:form action="/user/character/new" method="POST" modelAttribute="mCharDetails">
     <div class="mchar-attributes">
         <table>
@@ -132,12 +131,61 @@
                 <td><spring:message code="skill.heal"/> <form:input path="healValue" type="number" min="0"
                                                                     max="5"/></td>
             </tr>
+            <tr>
+                <td><c:choose>
+                    <c:when test="${mCharDetails.profession == 'Osiłek'}"><spring:message
+                            code="skill.intimidate"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Monter'}"><spring:message
+                            code="skill.jurryrig"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Szperacz'}"><spring:message
+                            code="skill.findthepath"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Macher'}"><spring:message
+                            code="skill.makeadeal"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Psiarz'}"><spring:message
+                            code="skill.sicadog"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Kronikarz'}"><spring:message
+                            code="skill.inspire"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Szef'}"><spring:message code="skill.command"/></c:when>
+                    <c:when test="${mCharDetails.profession == 'Robol'}"><spring:message
+                            code="skill.shakeitoff"/></c:when>
+                </c:choose>
+                    <form:input path="professionSkillValue" type="number" min="0"
+                                max="5"/></td>
+            </tr>
             </tbody>
         </table>
     </div>
     <form:hidden path="id"/>
-    <input type="submit">
+
+
+    <input type="submit" name="submitMChar">
 </form:form>
 
 <button><a href="/user/list">Powrót</a></button>
+<div>
 
+<table>
+    <thead>
+    <tr>
+        <th><spring:message code="basic.eq"/></th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach items="${eqList}" var="item">
+        <tr>
+            <td>${item.itemName} <a href="/user/character/equipment/delete/${mCharDetails.id}/${item.id}"><spring:message
+                    code="basic.delete"/></a></td>
+        </tr>
+    </c:forEach>
+    <tr>
+        <td><spring:message code="basic.ammo"/></td>
+    </tr>
+
+    </tbody>
+</table>
+
+<form:form action="/user/character/equipment" method="POST" modelAttribute="eq">
+    <form:input path="itemName" type="text"/>
+    <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
+    <button type="submit" name="submitEq"><spring:message code="basic.addtoeq"/></button>
+</form:form>
