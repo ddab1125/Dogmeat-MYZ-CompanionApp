@@ -15,10 +15,13 @@ import pl.coderslab.dogmeat.character.repository.CharacterRepository;
 import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
+import pl.coderslab.dogmeat.mutation.entity.Mutation;
+import pl.coderslab.dogmeat.mutation.service.MutationService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -28,6 +31,7 @@ public class UserController {
     private final CharacterRepository characterRepository;
     private final EquipmentService equipmentService;
 
+    private final MutationService mutationService;
 
 
     @ModelAttribute("mCharacters")
@@ -44,6 +48,10 @@ public class UserController {
         return values;
     }
 
+    @ModelAttribute("mutationList")
+    public List<Mutation> getMutationList() {
+        return mutationService.allMutations();
+    }
 
 
     @RequestMapping("/dashboard")
@@ -89,32 +97,35 @@ public class UserController {
     }
 
 
-    @PostMapping("/character/new")
-    public String saveNewCharacter(MCharacter mChar,
+    @PostMapping("/character/sheet")
+    public String saveNewCharacter(
                                    @AuthenticationPrincipal CurrentUser currentUser,
                                    Model model,
                                    @ModelAttribute("eq") Equipment eq,
                                    @ModelAttribute("mCharDetails") MCharacter mCharacterDetails) {
 
         List<Equipment> equipmentList;
+        Set<Mutation> mutationList;
 
-        if (mChar.getId() != null) {
-            model.addAttribute("eqList", characterRepository.findMCharacterById(mChar.getId()).getEquipment());
-            MCharacter carrier = characterRepository.findMCharacterById(mChar.getId());
-            mChar.setName(carrier.getName());
-            mChar.setProfession(carrier.getProfession());
-            mChar.setUser(currentUser.getUser());
-            mChar.setEquipment(carrier.getEquipment());
-            characterRepository.save(mChar);
-            model.addAttribute("mCharDetails", mChar);
-            return ("/user/characterdetails");
+        if (mCharacterDetails.getId() != null) {
+            model.addAttribute("eqList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getEquipment());
+            MCharacter carrier = characterRepository.findMCharacterById(mCharacterDetails.getId());
+            mCharacterDetails.setName(carrier.getName());
+            mCharacterDetails.setProfession(carrier.getProfession());
+            mCharacterDetails.setUser(currentUser.getUser());
+            mCharacterDetails.setEquipment(carrier.getEquipment());
+            mutationList = mCharacterDetails.getMutations();
+            mutationList.addAll(carrier.getMutations());
+            characterRepository.save(mCharacterDetails);
+            model.addAttribute("mCharDetails", mCharacterDetails);
+            return ("redirect:/user/character/details/"+ mCharacterDetails.getId());
         }
         model.addAttribute("eqList", equipmentList = new ArrayList<>());
-        mChar.setUser(currentUser.getUser());
-        characterRepository.save(mChar);
-        model.addAttribute("mCharDetails", mChar);
+        mCharacterDetails.setUser(currentUser.getUser());
+        characterRepository.save(mCharacterDetails);
+        model.addAttribute("mCharDetails", mCharacterDetails);
 
-        return ("/user/characterdetails");
+        return ("redirect:/user/character/details/"+ mCharacterDetails.getId());
     }
 
 

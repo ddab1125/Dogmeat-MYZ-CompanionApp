@@ -80,19 +80,16 @@ input[type="number"] {
     width: 50px;
 }
 
-/*.mchar-attributes {*/
-/*    width: 300px;*/
-/*    float: left;*/
-/*}*/
+.container {
+    display: grid;
+    grid-auto-flow: row dense;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+    "div1 div2 div3";
+}
+.div1 { grid-area: div1; }
+.div2 { grid-area: div2; }
+.div3 { grid-area: div3; }
 
-/*.mchar-basic {*/
-/*    text-align:left;*/
-/*    width:150px;*/
-/*    display:flex;*/
-/*}*/
-
-/*.mchar-skills {*/
-/*    display: block;*/
-/*    position: absolute;*/
-/*    top: 40%;*/
-/*}*/

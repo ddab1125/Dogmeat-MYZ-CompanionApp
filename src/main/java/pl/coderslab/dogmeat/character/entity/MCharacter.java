@@ -11,9 +11,7 @@ import pl.coderslab.dogmeat.user.entity.User;
 
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Entity
 @Data
@@ -100,7 +98,6 @@ public class MCharacter {
     @JoinColumn(name = "mchar_id")
     private List<Equipment> equipment = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name ="mchar_id")
-    private List<Mutation> mutations = new ArrayList<>();
+    @ManyToMany
+    private Set<Mutation> mutations = new LinkedHashSet<>();
 }
