@@ -18,4 +18,5 @@ public class Mutation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String mutationName;
+    private String mutationDescription;
 }

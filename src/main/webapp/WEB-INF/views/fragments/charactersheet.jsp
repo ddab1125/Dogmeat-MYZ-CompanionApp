@@ -12,7 +12,7 @@
 <body>
 
 <div>
-    <form:form action="/user/character/new" method="POST" modelAttribute="mChar">
+    <form:form action="/user/character/sheet" method="POST" modelAttribute="mChar">
         <input type="submit">
 
         <div class="mchar-attributes">
