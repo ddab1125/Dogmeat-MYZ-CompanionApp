@@ -13,6 +13,8 @@ import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.mutation.service.MutationService;
+import pl.coderslab.dogmeat.talent.entity.Talent;
+import pl.coderslab.dogmeat.talent.service.TalentService;
 
 import java.util.List;
 
@@ -25,10 +27,16 @@ public class EquipmentController {
     private final CharacterRepository characterRepository;
 
     private final MutationService mutationService;
+    private final TalentService talentService;
 
     @ModelAttribute("mutationList")
     public List<Mutation> getMutationList() {
         return mutationService.allMutations();
+    }
+
+    @ModelAttribute("talentList")
+    public List<Talent> getTalentList() {
+        return talentService.allTalents();
     }
 
     @ModelAttribute("rolesList")

@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.dogmeat.armor.entity.Armor;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.talent.entity.Talent;
@@ -67,7 +68,6 @@ public class MCharacter {
     }
 
 
-    //TODO add implementations for main attritbute for a proffesion so it can reach value of 5
     public static int[] randomAttributes() {
         int[] stats = {0, 0, 0, 0};
         int pointsPool = 14;
@@ -107,4 +107,8 @@ public class MCharacter {
 
     @ManyToMany
     private Set<Talent> talents = new LinkedHashSet<>();
+
+    @OneToOne
+    @JoinColumn
+    private Armor armor;
 }

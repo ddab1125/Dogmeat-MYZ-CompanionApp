@@ -7,18 +7,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import pl.coderslab.dogmeat.armor.entity.Armor;
+import pl.coderslab.dogmeat.armor.service.ArmorService;
 import pl.coderslab.dogmeat.character.dto.SimpleMCharacterDto;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
 import pl.coderslab.dogmeat.character.repository.CharacterRepository;
-import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.mutation.service.MutationService;
 import pl.coderslab.dogmeat.talent.entity.Talent;
-import pl.coderslab.dogmeat.talent.repository.TalentRepository;
 import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 
@@ -36,6 +36,7 @@ public class UserController {
 
     private final MutationService mutationService;
     private final TalentService talentService;
+    private final ArmorService armorService;
 
 
     @ModelAttribute("mCharacters")
@@ -108,10 +109,10 @@ public class UserController {
 
     @PostMapping("/character/sheet")
     public String saveNewCharacter(
-                                   @AuthenticationPrincipal CurrentUser currentUser,
-                                   Model model,
-                                   @ModelAttribute("eq") Equipment eq,
-                                   @ModelAttribute("mCharDetails") MCharacter mCharacterDetails) {
+            @AuthenticationPrincipal CurrentUser currentUser,
+            Model model,
+            @ModelAttribute("eq") Equipment eq,
+            @ModelAttribute("mCharDetails") MCharacter mCharacterDetails) {
 
         List<Equipment> equipmentList;
         Set<Mutation> mutationList;
@@ -128,16 +129,22 @@ public class UserController {
             mutationList.addAll(carrier.getMutations());
             talentList = mCharacterDetails.getTalents();
             talentList.addAll(carrier.getTalents());
+            if (carrier.getArmor() == null) {
+                armorService.saveArmor(mCharacterDetails.getArmor());
+            } else {
+                mCharacterDetails.getArmor().setId(carrier.getArmor().getId());
+                armorService.saveArmor(mCharacterDetails.getArmor());
+            }
+
             characterRepository.save(mCharacterDetails);
             model.addAttribute("mCharDetails", mCharacterDetails);
-            return ("redirect:/user/character/details/"+ mCharacterDetails.getId());
+            return ("redirect:/user/character/details/" + mCharacterDetails.getId());
         }
-        model.addAttribute("eqList", equipmentList = new ArrayList<>());
         mCharacterDetails.setUser(currentUser.getUser());
         characterRepository.save(mCharacterDetails);
         model.addAttribute("mCharDetails", mCharacterDetails);
 
-        return ("redirect:/user/character/details/"+ mCharacterDetails.getId());
+        return ("redirect:/user/character/details/" + mCharacterDetails.getId());
     }
 
 

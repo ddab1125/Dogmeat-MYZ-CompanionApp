@@ -177,7 +177,7 @@
     </div>
     <div class="div3">
         <div>
-          <h4 style="margin-bottom: auto"><spring:message code="basic.talents"/></h4><br>
+            <h4 style="margin-bottom: auto"><spring:message code="basic.talents"/></h4><br>
             <form:select path="talents" multiple="true">
                 <c:forEach items="${talentList}" var="talent">
                     <form:option value="${talent.id}"><spring:message code="talent.${talent.talentName}"/></form:option>
@@ -192,7 +192,7 @@
         </div>
 
         <div>
-           <h4 style="margin-bottom: auto"><spring:message code="basic.mutations"/></h4><br>
+            <h4 style="margin-bottom: auto"><spring:message code="basic.mutations"/></h4><br>
             <form:select path="mutations" multiple="true">
                 <c:forEach items="${mutationList}" var="mutation">
                     <form:option value="${mutation.id}"><spring:message
@@ -208,11 +208,24 @@
         </div>
         <div>
             <h4 style="margin-bottom: auto"><spring:message code="stat.mp"/></h4><br>
-                <div>
-                    <form:input path="mutationPoints" type="range" min="0" max="10"/>
-                    <jsp:include page="tickmarks10.jsp"/>
-                </div>
+            <div>
+                <form:input path="mutationPoints" type="range" min="0" max="10"/>
+                <jsp:include page="tickmarks10.jsp"/>
+            </div>
             </td>
+        </div>
+
+        <div>
+
+            <h4 style="margin-bottom: auto"><spring:message code="item.armor"/></h4><br>
+            <label>
+                <form:input path="armor.armorName" type="text"/>
+            </label>
+            <label>
+                <spring:message code="basic.value"/>
+                <form:input path="armor.armorValue" type="number" max="5"/>
+            </label>
+
         </div>
     </div>
 
@@ -242,11 +255,11 @@
             </c:forEach>
             <tr>
                 <td><spring:message code="item.carrycap"/>:
-                    <c:set var="totalWeight" value="${0}" />
+                    <c:set var="totalWeight" value="${0}"/>
                     <c:forEach var="item" items="${eqList}">
-                        <c:set var="totalWeight" value="${totalWeight + (item.itemWeight * item.itemQuantity)}" />
-            </c:forEach>
-            ${totalWeight} / <c:out value="${mCharDetails.strengthValue * 2}"/> </td>
+                        <c:set var="totalWeight" value="${totalWeight + (item.itemWeight * item.itemQuantity)}"/>
+                    </c:forEach>
+                    ${totalWeight} / <c:out value="${mCharDetails.strengthValue * 2}"/></td>
             </tr>
             </tbody>
 
