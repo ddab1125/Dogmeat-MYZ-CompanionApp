@@ -135,6 +135,22 @@
                         <form:input path="professionSkillValue" type="number" min="0"
                                     max="5"/></td>
                 </tr>
+                <tr>
+                    <td><spring:message code="stat.rotvalue"/>
+                        <div>
+                            <form:input path="rotValue" type="range" min="0" max="10"/>
+                            <jsp:include page="tickmarks10.jsp"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><spring:message code="stat.exp"/>
+                        <div>
+                            <form:input path="experiencePoints" type="range" min="0" max="10"/>
+                            <jsp:include page="tickmarks10.jsp"/>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -189,6 +205,14 @@
                     <li><spring:message code="mutation.${mutation.mutationName}"/></li>
                 </c:forEach>
             </ol>
+        </div>
+        <div>
+            <h4 style="margin-bottom: auto"><spring:message code="stat.mp"/></h4><br>
+                <div>
+                    <form:input path="mutationPoints" type="range" min="0" max="10"/>
+                    <jsp:include page="tickmarks10.jsp"/>
+                </div>
+            </td>
         </div>
     </div>
 

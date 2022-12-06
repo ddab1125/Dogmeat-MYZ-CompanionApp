@@ -54,6 +54,9 @@ public class MCharacter {
     private int healValue;
     private int professionSkillValue;
 
+    private int rotValue;
+    private int experiencePoints;
+    private int mutationPoints;
 
 
     public MCharacter(int strengthValue, int agilityValue, int witsValue, int empathyValue) {
