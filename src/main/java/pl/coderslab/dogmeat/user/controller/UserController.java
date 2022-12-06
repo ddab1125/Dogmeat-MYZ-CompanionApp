@@ -17,6 +17,9 @@ import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.mutation.service.MutationService;
+import pl.coderslab.dogmeat.talent.entity.Talent;
+import pl.coderslab.dogmeat.talent.repository.TalentRepository;
+import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public class UserController {
     private final EquipmentService equipmentService;
 
     private final MutationService mutationService;
+    private final TalentService talentService;
 
 
     @ModelAttribute("mCharacters")
@@ -51,6 +55,11 @@ public class UserController {
     @ModelAttribute("mutationList")
     public List<Mutation> getMutationList() {
         return mutationService.allMutations();
+    }
+
+    @ModelAttribute("talentList")
+    public List<Talent> getAllTalents() {
+        return talentService.allTalents();
     }
 
 
@@ -106,6 +115,7 @@ public class UserController {
 
         List<Equipment> equipmentList;
         Set<Mutation> mutationList;
+        Set<Talent> talentList;
 
         if (mCharacterDetails.getId() != null) {
             model.addAttribute("eqList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getEquipment());
@@ -116,6 +126,8 @@ public class UserController {
             mCharacterDetails.setEquipment(carrier.getEquipment());
             mutationList = mCharacterDetails.getMutations();
             mutationList.addAll(carrier.getMutations());
+            talentList = mCharacterDetails.getTalents();
+            talentList.addAll(carrier.getTalents());
             characterRepository.save(mCharacterDetails);
             model.addAttribute("mCharDetails", mCharacterDetails);
             return ("redirect:/user/character/details/"+ mCharacterDetails.getId());

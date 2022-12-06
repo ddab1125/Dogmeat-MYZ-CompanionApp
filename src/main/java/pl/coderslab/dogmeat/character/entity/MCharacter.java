@@ -7,6 +7,7 @@ import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
+import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.user.entity.User;
 
 
@@ -100,4 +101,7 @@ public class MCharacter {
 
     @ManyToMany
     private Set<Mutation> mutations = new LinkedHashSet<>();
+
+    @ManyToMany
+    private Set<Talent> talents = new LinkedHashSet<>();
 }

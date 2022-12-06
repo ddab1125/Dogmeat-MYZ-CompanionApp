@@ -27,4 +27,8 @@ public class EquipmentService {
         equipmentRepository.delete(equipmentRepository.findEquipmentById(id));
 
     }
+
+    public Equipment findEquipmentById(Long id) {
+       return equipmentRepository.findEquipmentById(id);
+    }
 }

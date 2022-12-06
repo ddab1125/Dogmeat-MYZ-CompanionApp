@@ -2,6 +2,7 @@ package pl.coderslab.dogmeat.mutation.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 
 @Transactional
+@Repository
 public interface MutationRepository extends JpaRepository<Mutation, Long> {
 
     @Query("SELECT m FROM Mutation m")

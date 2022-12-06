@@ -49,4 +49,12 @@ public class EquipmentController {
 
         return ("/user/characterdetails");
     }
+
+    @RequestMapping("/update")
+    public String updateItem(@ModelAttribute("eq") Equipment eq,
+                             @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
+                             Model model) {
+        System.out.println(model.getAttribute("eq"));
+        return ("/user/characterdetails");
+    }
 }
