@@ -21,6 +21,8 @@ import pl.coderslab.dogmeat.mutation.service.MutationService;
 import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
+import pl.coderslab.dogmeat.weapon.entity.Weapon;
+import pl.coderslab.dogmeat.weapon.service.WeaponService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,7 @@ public class UserController {
     private final MutationService mutationService;
     private final TalentService talentService;
     private final ArmorService armorService;
+    private final WeaponService weaponService;
 
 
     @ModelAttribute("mCharacters")
@@ -79,8 +82,10 @@ public class UserController {
     @RequestMapping("/character/details/{mCharId}")
     public String characterDetails(@PathVariable("mCharId") long id, Model model) {
         model.addAttribute("eqList", characterRepository.findMCharacterById(id).getEquipment());
+        model.addAttribute("weaponList", characterRepository.findMCharacterById(id).getWeapons());
         model.addAttribute("mCharDetails", characterRepository.findMCharacterById(id));
         model.addAttribute("eq", new Equipment());
+        model.addAttribute("weapon", new Weapon());
 
         return ("/user/characterdetails");
     }
@@ -112,7 +117,8 @@ public class UserController {
             @AuthenticationPrincipal CurrentUser currentUser,
             Model model,
             @ModelAttribute("eq") Equipment eq,
-            @ModelAttribute("mCharDetails") MCharacter mCharacterDetails) {
+            @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
+            @ModelAttribute("weapon") Weapon weapon) {
 
         List<Equipment> equipmentList;
         Set<Mutation> mutationList;
@@ -120,15 +126,19 @@ public class UserController {
 
         if (mCharacterDetails.getId() != null) {
             model.addAttribute("eqList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getEquipment());
+            model.addAttribute("weaponList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getWeapons());
             MCharacter carrier = characterRepository.findMCharacterById(mCharacterDetails.getId());
             mCharacterDetails.setName(carrier.getName());
             mCharacterDetails.setProfession(carrier.getProfession());
             mCharacterDetails.setUser(currentUser.getUser());
             mCharacterDetails.setEquipment(carrier.getEquipment());
+            mCharacterDetails.setWeapons(carrier.getWeapons());
             mutationList = mCharacterDetails.getMutations();
             mutationList.addAll(carrier.getMutations());
             talentList = mCharacterDetails.getTalents();
             talentList.addAll(carrier.getTalents());
+
+
             if (carrier.getArmor() == null) {
                 armorService.saveArmor(mCharacterDetails.getArmor());
             } else {
@@ -151,6 +161,7 @@ public class UserController {
     @PostMapping("/character/equipment")
     public String saveEqItem(@ModelAttribute("eq") Equipment eq,
                              @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
+                             @ModelAttribute("weapon") Weapon weapon,
                              Model model,
                              @RequestParam Long mCharId) {
 

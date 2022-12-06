@@ -10,6 +10,7 @@ import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.user.entity.User;
+import pl.coderslab.dogmeat.weapon.entity.Weapon;
 
 
 import javax.persistence.*;
@@ -98,7 +99,7 @@ public class MCharacter {
     @ManyToOne
     private User user;
 
-    @OneToMany()
+    @OneToMany
     @JoinColumn(name = "mchar_id")
     private List<Equipment> equipment = new ArrayList<>();
 
@@ -111,4 +112,8 @@ public class MCharacter {
     @OneToOne
     @JoinColumn
     private Armor armor;
+
+    @OneToMany
+    @JoinColumn(name = "mchar_id")
+    private List<Weapon> weapons = new ArrayList<>();
 }
