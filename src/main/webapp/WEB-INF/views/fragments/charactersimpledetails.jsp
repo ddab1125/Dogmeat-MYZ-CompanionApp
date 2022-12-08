@@ -5,7 +5,7 @@
 
 <div class="center">
     <h1 style="text-align: center">
-        ${mChar.name} - ${mChar.profession}
+        ${mChar.name} - <spring:message code="role.${mChar.profession}"/>
     </h1>
     <h2 style="text-align: center">${mChar.description}</h2>
 

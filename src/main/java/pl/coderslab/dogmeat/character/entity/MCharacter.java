@@ -5,9 +5,12 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
+import pl.coderslab.dogmeat.armor.entity.Armor;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
+import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.user.entity.User;
+import pl.coderslab.dogmeat.weapon.entity.Weapon;
 
 
 import javax.persistence.*;
@@ -39,6 +42,14 @@ public class MCharacter {
     private int confusionValue;
     private int doubtValue;
 
+    private boolean Starving;
+    private boolean Dehydrated;
+    private boolean Sleepless;
+    private boolean Hypothermic;
+
+    private String injuries;
+
+
     private int endureValue;
     private int forceValue;
     private int fightValue;
@@ -53,6 +64,11 @@ public class MCharacter {
     private int healValue;
     private int professionSkillValue;
 
+    private int rotValue;
+    private int experiencePoints;
+    private int mutationPoints;
+
+
 
 
     public MCharacter(int strengthValue, int agilityValue, int witsValue, int empathyValue) {
@@ -63,7 +79,6 @@ public class MCharacter {
     }
 
 
-    //TODO add implementations for main attritbute for a proffesion so it can reach value of 5
     public static int[] randomAttributes() {
         int[] stats = {0, 0, 0, 0};
         int pointsPool = 14;
@@ -94,10 +109,21 @@ public class MCharacter {
     @ManyToOne
     private User user;
 
-    @OneToMany()
+    @OneToMany
     @JoinColumn(name = "mchar_id")
     private List<Equipment> equipment = new ArrayList<>();
 
     @ManyToMany
     private Set<Mutation> mutations = new LinkedHashSet<>();
+
+    @ManyToMany
+    private Set<Talent> talents = new LinkedHashSet<>();
+
+    @OneToOne
+    @JoinColumn
+    private Armor armor;
+
+    @OneToMany
+    @JoinColumn(name = "mchar_id")
+    private List<Weapon> weapons = new ArrayList<>();
 }
