@@ -23,7 +23,7 @@
         <c:forEach items="${mCharacters}" var="mCharList">
             <tr>
                 <td>${mCharList.name}</td>
-                <td>${mCharList.profession}</td>
+                <td><spring:message code="role.${mCharList.profession}"/></td>
                 <td><a href="/user/character/details/${mCharList.id}">Szczegóły</a></td>
                 <td><a href="/user/character/delete/${mCharList.id}/confirm">Usuń</a></td>
             </tr>

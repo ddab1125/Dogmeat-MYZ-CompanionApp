@@ -1,14 +1,15 @@
 package pl.coderslab.dogmeat.weapon.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import pl.coderslab.dogmeat.equipment.entity.Equipment;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Weapon {
 
     @Id
@@ -21,5 +22,9 @@ public class Weapon {
     private String weaponSpecial;
 
     private double weaponWeight;
+
+    @OneToOne
+    @JoinColumn(name = "item_id")
+    private Equipment item;
 
 }

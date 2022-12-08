@@ -21,12 +21,22 @@ public class WeaponService {
     public void saveWeapon(Weapon weapon, MCharacter mCharacter) {
         weaponRepository.save(weapon);
         Equipment equipment = new Equipment();
+        weapon.setItem(equipment);
         equipment.setItemName(weapon.getWeaponName());
         equipment.setItemWeight(weapon.getWeaponWeight());
         equipment.setItemQuantity(1);
-        equipmentService.saveItem(equipment);
+        equipmentService.saveWeaponItem(equipment, weapon);
         mCharacter.getEquipment().add(equipment);
         characterRepository.save(mCharacter);
+        weaponRepository.save(weapon);
     }
 
+    public void deleteWeapon(Weapon weapon) {
+        equipmentService.deleteItem(weapon.getItem().getId());
+        weaponRepository.delete(weapon);
+    }
+
+    public Weapon findWeaponById(long weaponId) {
+       return weaponRepository.findWeaponById(weaponId);
+    }
 }

@@ -42,6 +42,14 @@ public class MCharacter {
     private int confusionValue;
     private int doubtValue;
 
+    private boolean Starving;
+    private boolean Dehydrated;
+    private boolean Sleepless;
+    private boolean Hypothermic;
+
+    private String injuries;
+
+
     private int endureValue;
     private int forceValue;
     private int fightValue;
@@ -59,6 +67,8 @@ public class MCharacter {
     private int rotValue;
     private int experiencePoints;
     private int mutationPoints;
+
+
 
 
     public MCharacter(int strengthValue, int agilityValue, int witsValue, int empathyValue) {

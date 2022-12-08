@@ -3,10 +3,7 @@ package pl.coderslab.dogmeat.weapon.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.repository.CharacterRepository;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
@@ -31,6 +28,14 @@ public class WeaponController {
         weapons.add(weapon);
         model.addAttribute("weaponList", weapons);
         weaponService.saveWeapon(weapon, mCharDetails);
+        return ("redirect:/user/character/details/" + mCharId);
+    }
+
+    @RequestMapping("/remove/{mCharId}/{weaponId}")
+    public String removeWeapon(@PathVariable long mCharId, @PathVariable long weaponId) {
+        MCharacter mCharacterDetails = characterRepository.findMCharacterById(mCharId);
+        weaponService.deleteWeapon(weaponService.findWeaponById(weaponId));
+
         return ("redirect:/user/character/details/" + mCharId);
     }
 }

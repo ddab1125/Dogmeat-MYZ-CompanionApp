@@ -8,4 +8,5 @@ import pl.coderslab.dogmeat.weapon.entity.Weapon;
 @Repository
 public interface WeaponRepository extends JpaRepository<Weapon, Long> {
 
+    Weapon findWeaponById(long weaponId);
 }

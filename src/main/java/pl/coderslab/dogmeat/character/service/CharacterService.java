@@ -23,7 +23,7 @@ public class CharacterService {
         int[] at = MCharacter.randomAttributes();
         MCharacter mCharacter = new MCharacter(at[0], at[1], at[2], at[3]);
         CharacterRole randomRole = roles[random.nextInt(roles.length)];
-        mCharacter.setProfession(randomRole.getRoleName());
+        mCharacter.setProfession(String.valueOf(randomRole));
         mCharacter.setName(CharacterNames.getRandomName());
         mCharacter.setDescription(CharacterDescriptions.getRandomDescription());
         return mCharacter;

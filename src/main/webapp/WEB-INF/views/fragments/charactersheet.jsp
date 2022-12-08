@@ -20,7 +20,7 @@
             <label> <spring:message code="basic.prof"/>
                 <form:select path="profession">
                     <c:forEach items="${rolesList}" var="role">
-                        <form:option value="${role.roleName}">${role.roleName}</form:option>
+                        <form:option value="${role}"><spring:message code="role.${role}"/></form:option>
                     </c:forEach>
                 </form:select>
             </label>

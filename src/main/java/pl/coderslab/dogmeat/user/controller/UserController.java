@@ -22,6 +22,7 @@ import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
+import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
 import pl.coderslab.dogmeat.weapon.service.WeaponService;
 
 import java.util.ArrayList;
@@ -53,6 +54,12 @@ public class UserController {
     @ModelAttribute("rolesList")
     public CharacterRole[] getRolesList() {
         CharacterRole[] values = CharacterRole.values();
+        return values;
+    }
+
+    @ModelAttribute("rangeList")
+    public WeaponRange[] getWeaponRangeList() {
+        WeaponRange[] values = WeaponRange.values();
         return values;
     }
 
@@ -160,16 +167,10 @@ public class UserController {
 
     @PostMapping("/character/equipment")
     public String saveEqItem(@ModelAttribute("eq") Equipment eq,
-                             @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
-                             @ModelAttribute("weapon") Weapon weapon,
-                             Model model,
                              @RequestParam Long mCharId) {
 
         MCharacter mCharacter = characterRepository.findMCharacterById(mCharId);
-        model.addAttribute("eqList", characterRepository.findMCharacterById(mCharId).getEquipment());
-        model.addAttribute("mCharDetails", mCharacter);
         List<Equipment> equipmentList;
-
         if (mCharacter.getEquipment() == null) {
             equipmentList = new ArrayList<>();
 
@@ -181,7 +182,7 @@ public class UserController {
         mCharacter.setEquipment(equipmentList);
         characterRepository.save(mCharacter);
 
-        return ("/user/characterdetails");
+        return ("redirect:/user/character/details/" + mCharId);
     }
 
 
