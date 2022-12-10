@@ -7,43 +7,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import pl.coderslab.dogmeat.armor.entity.Armor;
-import pl.coderslab.dogmeat.armor.service.ArmorService;
-import pl.coderslab.dogmeat.character.dto.SimpleMCharacterDto;
-import pl.coderslab.dogmeat.character.entity.MCharacter;
-import pl.coderslab.dogmeat.character.enums.CharacterRole;
-import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
-import pl.coderslab.dogmeat.character.repository.CharacterRepository;
-import pl.coderslab.dogmeat.character.service.CharacterService;
-import pl.coderslab.dogmeat.equipment.entity.Equipment;
-import pl.coderslab.dogmeat.equipment.service.EquipmentService;
-import pl.coderslab.dogmeat.mutation.entity.Mutation;
-import pl.coderslab.dogmeat.mutation.service.MutationService;
-import pl.coderslab.dogmeat.talent.entity.Talent;
-import pl.coderslab.dogmeat.talent.service.TalentService;
-import pl.coderslab.dogmeat.user.entity.User;
-import pl.coderslab.dogmeat.user.service.CurrentUser;
-import pl.coderslab.dogmeat.weapon.entity.Weapon;
-import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
-import pl.coderslab.dogmeat.weapon.service.WeaponService;
 
-import java.util.ArrayList;
+import pl.coderslab.dogmeat.character.dto.SimpleMCharacterDto;
+import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
+import pl.coderslab.dogmeat.character.service.CharacterService;
+import pl.coderslab.dogmeat.user.service.CurrentUser;
+
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
 
-//    private final CharacterRepository characterRepository;
     private final CharacterService characterService;
-    private final EquipmentService equipmentService;
-
-    private final MutationService mutationService;
-    private final TalentService talentService;
-    private final ArmorService armorService;
-    private final WeaponService weaponService;
 
 
     @ModelAttribute("mCharacters")
@@ -52,28 +29,6 @@ public class UserController {
                 .map(MCharacterMapper.INSTANCE::mCharToMCharDto)
                 .toList();
         return sheetList;
-    }
-
-    @ModelAttribute("rolesList")
-    public CharacterRole[] getRolesList() {
-        CharacterRole[] values = CharacterRole.values();
-        return values;
-    }
-
-    @ModelAttribute("rangeList")
-    public WeaponRange[] getWeaponRangeList() {
-        WeaponRange[] values = WeaponRange.values();
-        return values;
-    }
-
-    @ModelAttribute("mutationList")
-    public List<Mutation> getMutationList() {
-        return mutationService.allMutations();
-    }
-
-    @ModelAttribute("talentList")
-    public List<Talent> getAllTalents() {
-        return talentService.allTalents();
     }
 
 
@@ -87,124 +42,6 @@ public class UserController {
     public String userCharacterList(Model model) {
         model.getAttribute("mCharacters");
         return ("/user/characterslist");
-    }
-
-    @RequestMapping("/character/details/{mCharId}")
-    public String characterDetails(@AuthenticationPrincipal CurrentUser currentUser,
-            @PathVariable("mCharId") long id, Model model) {
-        User user = currentUser.getUser();
-        List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
-        model.addAttribute("eqList", characterService.findMCharacterById(id).getEquipment());
-        model.addAttribute("weaponList", characterService.findMCharacterById(id).getWeapons());
-        model.addAttribute("mCharDetails", characterService.findMCharacterById(id));
-        model.addAttribute("eq", new Equipment());
-        model.addAttribute("weapon", new Weapon());
-
-        if (charactersIds.contains(id)) {
-
-            return ("/user/characterdetails");
-        } else {
-
-            return ("/user/characterdetailsreadonly");
-        }
-
-
-    }
-
-    @RequestMapping("/character/delete/{mCharId}/confirm")
-    public String confirmDelete(@PathVariable("mCharId") long id) {
-
-        return ("/user/confirmdelete");
-    }
-
-    @RequestMapping("/character/details/delete/{mCharId}")
-    public String deleteCharacter(@AuthenticationPrincipal CurrentUser currentUser,
-            @PathVariable("mCharId") long id) {
-        User user = currentUser.getUser();
-        List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
-        if (charactersIds.contains(id)) {
-
-            characterService.deleteMCharacterById(id);
-        } else {
-            return ("errors/403");
-        }
-
-        return ("redirect:/user/list");
-    }
-
-    @GetMapping("/character/new")
-    public String newCharacter(Model model) {
-        model.addAttribute("mChar", new MCharacter());
-
-        return ("/fragments/charactersheet");
-
-    }
-
-
-    @PostMapping("/character/sheet")
-    public String saveNewCharacter(
-            @AuthenticationPrincipal CurrentUser currentUser,
-            Model model,
-            @ModelAttribute("eq") Equipment eq,
-            @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
-            @ModelAttribute("weapon") Weapon weapon) {
-
-        List<Equipment> equipmentList;
-        Set<Mutation> mutationList;
-        Set<Talent> talentList;
-
-        if (mCharacterDetails.getId() != null) {
-            model.addAttribute("eqList", characterService.findMCharacterById(mCharacterDetails.getId()).getEquipment());
-            model.addAttribute("weaponList", characterService.findMCharacterById(mCharacterDetails.getId()).getWeapons());
-            MCharacter carrier = characterService.findMCharacterById(mCharacterDetails.getId());
-            mCharacterDetails.setName(carrier.getName());
-            mCharacterDetails.setProfession(carrier.getProfession());
-            mCharacterDetails.setUser(currentUser.getUser());
-            mCharacterDetails.setEquipment(carrier.getEquipment());
-            mCharacterDetails.setWeapons(carrier.getWeapons());
-            mutationList = mCharacterDetails.getMutations();
-            mutationList.addAll(carrier.getMutations());
-            talentList = mCharacterDetails.getTalents();
-            talentList.addAll(carrier.getTalents());
-
-
-            if (carrier.getArmor() == null) {
-                armorService.saveArmor(mCharacterDetails.getArmor());
-            } else {
-                mCharacterDetails.getArmor().setId(carrier.getArmor().getId());
-                armorService.saveArmor(mCharacterDetails.getArmor());
-            }
-
-            characterService.save(mCharacterDetails);
-            model.addAttribute("mCharDetails", mCharacterDetails);
-            return ("redirect:/user/character/details/" + mCharacterDetails.getId());
-        }
-        mCharacterDetails.setUser(currentUser.getUser());
-        characterService.save(mCharacterDetails);
-        model.addAttribute("mCharDetails", mCharacterDetails);
-
-        return ("redirect:/user/character/details/" + mCharacterDetails.getId());
-    }
-
-
-    @PostMapping("/character/equipment")
-    public String saveEqItem(@ModelAttribute("eq") Equipment eq,
-                             @RequestParam Long mCharId) {
-
-        MCharacter mCharacter = characterService.findMCharacterById(mCharId);
-        List<Equipment> equipmentList;
-        if (mCharacter.getEquipment() == null) {
-            equipmentList = new ArrayList<>();
-
-        } else {
-            equipmentList = mCharacter.getEquipment();
-        }
-        equipmentList.add(eq);
-        equipmentService.saveItem(eq);
-        mCharacter.setEquipment(equipmentList);
-        characterService.save(mCharacter);
-
-        return ("redirect:/user/character/details/" + mCharId);
     }
 
 

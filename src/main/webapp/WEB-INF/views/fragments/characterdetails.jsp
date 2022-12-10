@@ -309,7 +309,7 @@
         <br>
         <br>
         <div>
-            <form:form action="/user/character/equipment" method="POST" modelAttribute="eq">
+            <form:form action="/user/character/equipment/add" method="POST" modelAttribute="eq">
                 <form:input path="itemName" type="text"/>
                 <spring:message code="item.quantity"/>
                 <form:input path="itemQuantity" type="number" min="1"/>

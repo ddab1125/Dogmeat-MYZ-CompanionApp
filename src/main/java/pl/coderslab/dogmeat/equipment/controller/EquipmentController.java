@@ -3,13 +3,10 @@ package pl.coderslab.dogmeat.equipment.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
-import pl.coderslab.dogmeat.character.repository.CharacterRepository;
+import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
@@ -17,8 +14,9 @@ import pl.coderslab.dogmeat.mutation.service.MutationService;
 import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
-import pl.coderslab.dogmeat.weapon.service.WeaponService;
 
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,12 +26,12 @@ import java.util.Optional;
 public class EquipmentController {
 
     private final EquipmentService equipmentService;
-    private final CharacterRepository characterRepository;
+    private final CharacterService characterService;
 
     private final MutationService mutationService;
     private final TalentService talentService;
 
-    private final WeaponService weaponService;
+
 
     @ModelAttribute("mutationList")
     public List<Mutation> getMutationList() {
@@ -56,7 +54,7 @@ public class EquipmentController {
                              @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
                              @PathVariable long mCharId, @PathVariable long itemId,
                              Model model) {
-        mCharacterDetails = characterRepository.findMCharacterById(mCharId);
+        mCharacterDetails = characterService.findMCharacterById(mCharId);
         model.addAttribute("mCharDetails", mCharacterDetails);
         model.addAttribute("weapon", new Weapon());
         model.addAttribute("weaponList", mCharacterDetails.getWeapons());
@@ -77,6 +75,26 @@ public class EquipmentController {
 
     return ("redirect:/user/character/details/" + mCharId);
 }
+
+    @PostMapping("/add")
+    public String saveEqItem(@ModelAttribute("eq") Equipment eq,
+                             @RequestParam Long mCharId) {
+
+        MCharacter mCharacter = characterService.findMCharacterById(mCharId);
+        List<Equipment> equipmentList;
+        if (mCharacter.getEquipment() == null) {
+            equipmentList = new ArrayList<>();
+
+        } else {
+            equipmentList = mCharacter.getEquipment();
+        }
+        equipmentList.add(eq);
+        equipmentService.saveItem(eq);
+        mCharacter.setEquipment(equipmentList);
+        characterService.save(mCharacter);
+
+        return ("redirect:/user/character/details/" + mCharId);
+    }
 
 
 }
