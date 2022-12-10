@@ -16,6 +16,26 @@ import java.util.Random;
 @Data
 public class CharacterService {
 
+    private final CharacterRepository characterRepository;
+
+    public List<MCharacter> findMCharacterByUserId(Long userId) {
+        return characterRepository.findMCharacterByUserId(userId);
+    }
+    public List<Long> findMcharactersIdByUserId(Long userId) {
+        return characterRepository.findMcharactersIdByUserId(userId);
+    }
+
+    public MCharacter findMCharacterById(Long mCharId){
+        return characterRepository.findMCharacterById(mCharId);
+    }
+
+    public void deleteMCharacterById(Long mCharId){
+        characterRepository.deleteMCharacterById(mCharId);
+    }
+
+    public void save(MCharacter mCharacter) {
+        characterRepository.save(mCharacter);
+    }
 
     public MCharacter generateCharacter() {
         CharacterRole[] roles = CharacterRole.values();
@@ -29,9 +49,6 @@ public class CharacterService {
         return mCharacter;
     }
 
-//    private void addEqToCharacter(MCharacter mCharacter) {
-//        Hibernate.initialize(mCharacter.getEquipment());
-//    }
 
 
 }
