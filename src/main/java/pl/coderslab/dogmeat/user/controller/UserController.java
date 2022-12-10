@@ -14,12 +14,14 @@ import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
 import pl.coderslab.dogmeat.character.repository.CharacterRepository;
+import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.equipment.service.EquipmentService;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
 import pl.coderslab.dogmeat.mutation.service.MutationService;
 import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.talent.service.TalentService;
+import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
 import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
@@ -34,7 +36,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final CharacterRepository characterRepository;
+//    private final CharacterRepository characterRepository;
+    private final CharacterService characterService;
     private final EquipmentService equipmentService;
 
     private final MutationService mutationService;
@@ -45,7 +48,7 @@ public class UserController {
 
     @ModelAttribute("mCharacters")
     public List<SimpleMCharacterDto> getSheetList(@AuthenticationPrincipal CurrentUser currentUser) {
-        List<SimpleMCharacterDto> sheetList = characterRepository.findMCharacterByUserId(currentUser.getUser().getId()).stream()
+        List<SimpleMCharacterDto> sheetList = characterService.findMCharacterByUserId(currentUser.getUser().getId()).stream()
                 .map(MCharacterMapper.INSTANCE::mCharToMCharDto)
                 .toList();
         return sheetList;
@@ -87,14 +90,25 @@ public class UserController {
     }
 
     @RequestMapping("/character/details/{mCharId}")
-    public String characterDetails(@PathVariable("mCharId") long id, Model model) {
-        model.addAttribute("eqList", characterRepository.findMCharacterById(id).getEquipment());
-        model.addAttribute("weaponList", characterRepository.findMCharacterById(id).getWeapons());
-        model.addAttribute("mCharDetails", characterRepository.findMCharacterById(id));
+    public String characterDetails(@AuthenticationPrincipal CurrentUser currentUser,
+            @PathVariable("mCharId") long id, Model model) {
+        User user = currentUser.getUser();
+        List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
+        model.addAttribute("eqList", characterService.findMCharacterById(id).getEquipment());
+        model.addAttribute("weaponList", characterService.findMCharacterById(id).getWeapons());
+        model.addAttribute("mCharDetails", characterService.findMCharacterById(id));
         model.addAttribute("eq", new Equipment());
         model.addAttribute("weapon", new Weapon());
 
-        return ("/user/characterdetails");
+        if (charactersIds.contains(id)) {
+
+            return ("/user/characterdetails");
+        } else {
+
+            return ("/user/characterdetailsreadonly");
+        }
+
+
     }
 
     @RequestMapping("/character/delete/{mCharId}/confirm")
@@ -104,8 +118,16 @@ public class UserController {
     }
 
     @RequestMapping("/character/details/delete/{mCharId}")
-    public String deleteCharacter(@PathVariable("mCharId") long id) {
-        characterRepository.deleteMCharacterById(id);
+    public String deleteCharacter(@AuthenticationPrincipal CurrentUser currentUser,
+            @PathVariable("mCharId") long id) {
+        User user = currentUser.getUser();
+        List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
+        if (charactersIds.contains(id)) {
+
+            characterService.deleteMCharacterById(id);
+        } else {
+            return ("errors/403");
+        }
 
         return ("redirect:/user/list");
     }
@@ -132,9 +154,9 @@ public class UserController {
         Set<Talent> talentList;
 
         if (mCharacterDetails.getId() != null) {
-            model.addAttribute("eqList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getEquipment());
-            model.addAttribute("weaponList", characterRepository.findMCharacterById(mCharacterDetails.getId()).getWeapons());
-            MCharacter carrier = characterRepository.findMCharacterById(mCharacterDetails.getId());
+            model.addAttribute("eqList", characterService.findMCharacterById(mCharacterDetails.getId()).getEquipment());
+            model.addAttribute("weaponList", characterService.findMCharacterById(mCharacterDetails.getId()).getWeapons());
+            MCharacter carrier = characterService.findMCharacterById(mCharacterDetails.getId());
             mCharacterDetails.setName(carrier.getName());
             mCharacterDetails.setProfession(carrier.getProfession());
             mCharacterDetails.setUser(currentUser.getUser());
@@ -153,12 +175,12 @@ public class UserController {
                 armorService.saveArmor(mCharacterDetails.getArmor());
             }
 
-            characterRepository.save(mCharacterDetails);
+            characterService.save(mCharacterDetails);
             model.addAttribute("mCharDetails", mCharacterDetails);
             return ("redirect:/user/character/details/" + mCharacterDetails.getId());
         }
         mCharacterDetails.setUser(currentUser.getUser());
-        characterRepository.save(mCharacterDetails);
+        characterService.save(mCharacterDetails);
         model.addAttribute("mCharDetails", mCharacterDetails);
 
         return ("redirect:/user/character/details/" + mCharacterDetails.getId());
@@ -169,7 +191,7 @@ public class UserController {
     public String saveEqItem(@ModelAttribute("eq") Equipment eq,
                              @RequestParam Long mCharId) {
 
-        MCharacter mCharacter = characterRepository.findMCharacterById(mCharId);
+        MCharacter mCharacter = characterService.findMCharacterById(mCharId);
         List<Equipment> equipmentList;
         if (mCharacter.getEquipment() == null) {
             equipmentList = new ArrayList<>();
@@ -180,7 +202,7 @@ public class UserController {
         equipmentList.add(eq);
         equipmentService.saveItem(eq);
         mCharacter.setEquipment(equipmentList);
-        characterRepository.save(mCharacter);
+        characterService.save(mCharacter);
 
         return ("redirect:/user/character/details/" + mCharId);
     }
