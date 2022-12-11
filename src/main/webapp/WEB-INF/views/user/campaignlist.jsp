@@ -13,18 +13,21 @@
 <jsp:include page="../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
-
-    <sec:authorize access="isAuthenticated()">
-        <p>Witaj <sec:authentication property="principal.username"/>!</p>
-    </sec:authorize>
-    <div>
-
-        <jsp:include page="../fragments/manageuser.jsp"/>
-        <form action="<c:url value="/logout"/>" method="POST">
-            <input class="center" type="submit" value="Wyloguj">
-            <input class="center" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-    </div>
+    <table>
+        <tr>
+            <td>Nazwa Kampanii</td>
+            <td>Mistrz Gry</td>
+            <td>Szczegóły</td>
+        </tr>
+        <c:forEach items="${campaignList}" var="campaign">
+            <tr>
+                <td>${campaign.campaignName}</td>
+                <td>${campaign.gameMaster.username}</td>
+                <td><a href="#">Szczegóły</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+        <button><a href="/user/campaign/new">Nowa Kampania</a></button>
 
 </div>
 </body>

@@ -3,7 +3,6 @@ package pl.coderslab.dogmeat.character.entity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Cascade;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.dogmeat.armor.entity.Armor;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
