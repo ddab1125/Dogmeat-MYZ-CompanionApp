@@ -27,7 +27,8 @@
                     <td>${mCharList.name}</td>
                     <td><spring:message code="role.${mCharList.profession}"/></td>
                     <td>${mCharList.user.username}</td>
-                    <td><a href="/user/character/details/${mCharList.id}">Szczegóły</a></td>
+                    <td><a href="/user/character/details/${mCharList.id}"><spring:message code="basic.details"/></a></td>
+                    <td><a href="/user/campaign/character/delete/${campaign.id}/${mCharList.id}"><spring:message code="basic.deletecharacterfromcampaign"/></a></td>
 
                 </tr>
             </c:forEach>

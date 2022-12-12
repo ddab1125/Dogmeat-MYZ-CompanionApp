@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.armor.service.ArmorService;
-import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
@@ -23,7 +22,6 @@ import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -35,7 +33,6 @@ public class UserCharacterController {
     private final TalentService talentService;
     private final ArmorService armorService;
 
-    private final CampaignService campaignService;
 
 
     @ModelAttribute("rolesList")
@@ -87,7 +84,6 @@ public class UserCharacterController {
     }
 
 
-
     @RequestMapping("/character/delete/{mCharId}/confirm")
     public String confirmDelete(@PathVariable("mCharId") long id) {
 
@@ -113,7 +109,7 @@ public class UserCharacterController {
     public String newCharacter(Model model) {
         model.addAttribute("mChar", new MCharacter());
 
-        return ("/fragments/charactersheet");
+        return ("/user/characternew");
 
     }
 
