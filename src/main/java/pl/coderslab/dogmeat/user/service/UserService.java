@@ -13,6 +13,7 @@ import pl.coderslab.dogmeat.user.repository.UserRepository;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 @Data
@@ -39,4 +40,21 @@ public class UserService{
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
+
+    public void save(User user) {
+        userRepository.save(user);
+    }
+
+    public List<User> findAll(){
+        return userRepository.findAll();
+    }
+
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
+    public List<User> findUserStartsWith(String name){
+        return userRepository.findUsersByUsernameStartsWithIgnoreCase(name);
+    }
+
 }

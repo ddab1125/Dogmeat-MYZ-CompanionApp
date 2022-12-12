@@ -14,7 +14,7 @@
 
 <div style="margin-left:15%;padding:1px 16px;height:1000px;">
 
-    <table border="1">
+    <table>
         <tr>
             <td>Imię</td>
             <td>Rola</td>

@@ -18,6 +18,8 @@
         <p>Witaj <sec:authentication property="principal.username"/>!</p>
     </sec:authorize>
     <div>
+
+        <jsp:include page="../fragments/manageuser.jsp"/>
         <form action="<c:url value="/logout"/>" method="POST">
             <input class="center" type="submit" value="Wyloguj">
             <input class="center" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
