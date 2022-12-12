@@ -6,10 +6,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.armor.service.ArmorService;
-import pl.coderslab.dogmeat.character.dto.SimpleMCharacterDto;
+import pl.coderslab.dogmeat.campaign.entity.Campaign;
+import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
-import pl.coderslab.dogmeat.character.mapper.MCharacterMapper;
 import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
 import pl.coderslab.dogmeat.mutation.entity.Mutation;
@@ -23,6 +23,7 @@ import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -33,6 +34,8 @@ public class UserCharacterController {
     private final MutationService mutationService;
     private final TalentService talentService;
     private final ArmorService armorService;
+
+    private final CampaignService campaignService;
 
 
     @ModelAttribute("rolesList")
@@ -61,14 +64,18 @@ public class UserCharacterController {
     public String characterDetails(@AuthenticationPrincipal CurrentUser currentUser,
                                    @PathVariable("mCharId") long id, Model model) {
         User user = currentUser.getUser();
+
+        MCharacter mChar = characterService.findMCharacterById(id);
+
+
         List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
-        model.addAttribute("eqList", characterService.findMCharacterById(id).getEquipment());
-        model.addAttribute("weaponList", characterService.findMCharacterById(id).getWeapons());
-        model.addAttribute("mCharDetails", characterService.findMCharacterById(id));
+        model.addAttribute("eqList", mChar.getEquipment());
+        model.addAttribute("weaponList", mChar.getWeapons());
+        model.addAttribute("mCharDetails", mChar);
         model.addAttribute("eq", new Equipment());
         model.addAttribute("weapon", new Weapon());
 
-        if (charactersIds.contains(id)) {
+        if (charactersIds.contains(id) || characterService.isGm(user, mChar)) {
 
             return ("/user/characterdetails");
         } else {
@@ -78,6 +85,8 @@ public class UserCharacterController {
 
 
     }
+
+
 
     @RequestMapping("/character/delete/{mCharId}/confirm")
     public String confirmDelete(@PathVariable("mCharId") long id) {

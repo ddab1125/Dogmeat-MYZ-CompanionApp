@@ -39,14 +39,14 @@ public class CampaignFormController {
     @RequestMapping("")
     public String newCampaign() {
 
-        return "fragments/newCampaign/step1";
+        return "user/campaign/step1";
     }
 
     @PostMapping("/step2")
     public String newCampaignStep2(@RequestParam String campaignName, Model model) {
         model.addAttribute("campaignName", campaignName);
 
-        return "fragments/newCampaign/step2";
+        return "user/campaign/step2";
     }
 
     @PostMapping("/step3")
@@ -59,7 +59,7 @@ public class CampaignFormController {
         model.addAttribute("mCharacters", mCharactersByUser);
 
 
-        return "fragments/newCampaign/step3";
+        return "user/campaign/step3";
     }
 
     @PostMapping("/finish")
@@ -74,7 +74,7 @@ public class CampaignFormController {
        campaign.setGameMaster(currentUser.getUser());
 
        campaignService.saveCampaign(campaign);
-        return "user/campaignlist";
+        return "redirect:/user/campaign";
     }
 
 

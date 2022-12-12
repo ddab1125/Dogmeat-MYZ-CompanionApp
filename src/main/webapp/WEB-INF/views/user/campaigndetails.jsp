@@ -13,7 +13,30 @@
 <jsp:include page="../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
-<jsp:include page="../fragments/campaigndetails.jsp"/>
+    <div class="container">
+        <jsp:include page="../fragments/campaigndetails.jsp"/>
+        <table>
+            <tr>
+                <td><spring:message code="basic.name"/></td>
+                <td><spring:message code="basic.prof"/></td>
+                <td><spring:message code="user.player"/></td>
+                <td colspan="2"></td>
+            </tr>
+            <c:forEach items="${campaignCharacterList}" var="mCharList">
+                <tr>
+                    <td>${mCharList.name}</td>
+                    <td><spring:message code="role.${mCharList.profession}"/></td>
+                    <td>${mCharList.user.username}</td>
+                    <td><a href="/user/character/details/${mCharList.id}">Szczegóły</a></td>
+
+                </tr>
+            </c:forEach>
+        </table>
+
+
+    </div>
+
+
 </div>
 </body>
 </html>

@@ -10,9 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
-import pl.coderslab.dogmeat.user.Dto.UserCampaignDto;
-import pl.coderslab.dogmeat.user.entity.User;
-import pl.coderslab.dogmeat.user.mapper.UserMapper;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.user.service.UserService;
 
@@ -31,6 +28,11 @@ public class CampaignController {
         return campaignService.findAllCampaignsByPlayer(currentUser.getUser().getId());
     }
 
+    @ModelAttribute("gmCampaignList")
+    public List<Campaign> getGmCampaignList(@AuthenticationPrincipal CurrentUser currentUser) {
+        return campaignService.findAllGmCampaignsByPlayer(currentUser.getUser().getId());
+    }
+
 
     @RequestMapping()
     public String campaignList() {
@@ -38,19 +40,20 @@ public class CampaignController {
     }
 
 
-
     @PostMapping("/delete")
     public String deleteCampaign(@RequestParam("campaignId") Long id) {
         campaignService.deleteCampaign(campaignService.findCampaignById(id));
-        return "redirect:user/campaign/";
+        return "redirect:/user/campaign/";
     }
 
     @PostMapping("/details")
     public String campaignDetails(@RequestParam("campaignId") Long id,
                                   Model model) {
         model.addAttribute("campaign", campaignService.findCampaignById(id));
-
+        model.addAttribute("campaignCharacterList", campaignService.getCampaignCharacterList(id));
 
         return "user/campaigndetails";
     }
+
+
 }

@@ -28,4 +28,5 @@ public interface CharacterRepository extends JpaRepository<MCharacter, Long> {
 
 
 
+
 }

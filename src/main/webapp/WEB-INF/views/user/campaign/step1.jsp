@@ -8,13 +8,12 @@
     <title><spring:message code="app.title"/></title>
 </head>
 <body>
-<jsp:include page="../fragments/navbar.jsp"/>
+<jsp:include page="../../fragments/navbar.jsp"/>
 
-<jsp:include page="../fragments/dash.jsp"/>
+<jsp:include page="../../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
-    <button><a href="/user/character/details/delete/${mCharId}">Usuń</a></button>
-    <button><a href="/user/list">Powrót</a></button>
+    <jsp:include page="../../fragments/newCampaign/step1.jsp"/>
 </div>
 </body>
 </html>
