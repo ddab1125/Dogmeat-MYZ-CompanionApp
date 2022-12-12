@@ -49,4 +49,12 @@ public class UserService{
         return userRepository.findAll();
     }
 
+    public User findUserById(Long id) {
+        return userRepository.findUserById(id);
+    }
+
+    public List<User> findUserStartsWith(String name){
+        return userRepository.findUsersByUsernameStartsWithIgnoreCase(name);
+    }
+
 }

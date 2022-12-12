@@ -11,4 +11,7 @@ public interface CampaignRepository extends JpaRepository<Campaign, Long> {
 
 List<Campaign> findAllCampaignsByPlayersId(Long id);
 
+Campaign findCampaignById(Long id);
+
+
 }

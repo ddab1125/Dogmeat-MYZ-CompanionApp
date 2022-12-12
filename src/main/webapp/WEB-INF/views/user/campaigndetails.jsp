@@ -13,7 +13,7 @@
 <jsp:include page="../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
-    <jsp:include page="../fragments/campaignlist.jsp"/>
+<jsp:include page="../fragments/campaigndetails.jsp"/>
 </div>
 </body>
 </html>

@@ -2,11 +2,14 @@ package pl.coderslab.dogmeat.campaign.entity;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.user.entity.User;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -26,4 +29,8 @@ public class Campaign {
             joinColumns = @JoinColumn(name = "campaign_id"),
             inverseJoinColumns = @JoinColumn(name = "player_id"))
     private List<User> players = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "campaign_mcharacters")
+    private Set<MCharacter> mCharacters = new HashSet<>();
 }

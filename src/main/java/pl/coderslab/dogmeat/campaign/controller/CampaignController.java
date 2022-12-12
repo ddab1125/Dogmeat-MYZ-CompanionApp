@@ -3,12 +3,15 @@ package pl.coderslab.dogmeat.campaign.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.user.Dto.UserCampaignDto;
+import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.user.mapper.UserMapper;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.user.service.UserService;
@@ -28,31 +31,26 @@ public class CampaignController {
         return campaignService.findAllCampaignsByPlayer(currentUser.getUser().getId());
     }
 
-    @ModelAttribute("playersList")
-    public List<UserCampaignDto> getAllPlayers() {
-        return userService.findAll()
-                .stream()
-                .map(UserMapper.INSTANCE::userToUserCampaignDto)
-                .toList();
-    }
-
 
     @RequestMapping()
     public String campaignList() {
         return "user/campaignlist";
     }
 
-    @RequestMapping("/new")
-    public String newCampaign(@ModelAttribute("campaign") Campaign campaign) {
-        return "fragments/newcampaignform";
+
+
+    @PostMapping("/delete")
+    public String deleteCampaign(@RequestParam("campaignId") Long id) {
+        campaignService.deleteCampaign(campaignService.findCampaignById(id));
+        return "redirect:user/campaign/";
     }
 
-    @PostMapping("/new")
-    public String saveNewCampaign(@AuthenticationPrincipal CurrentUser currentUser,
-                                  @ModelAttribute("campaign") Campaign campaign) {
-        campaign.setGameMaster(currentUser.getUser());
-        campaign.getPlayers().add(currentUser.getUser());
-    campaignService.saveCampaign(campaign);
-        return "user/campaignlist";
+    @PostMapping("/details")
+    public String campaignDetails(@RequestParam("campaignId") Long id,
+                                  Model model) {
+        model.addAttribute("campaign", campaignService.findCampaignById(id));
+
+
+        return "user/campaigndetails";
     }
 }

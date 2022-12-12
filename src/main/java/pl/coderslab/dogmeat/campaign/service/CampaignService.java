@@ -20,4 +20,12 @@ public class CampaignService {
     public void saveCampaign(Campaign campaign){
         campaignRepository.save(campaign);
     }
+
+    public Campaign findCampaignById(Long id){
+        return campaignRepository.findCampaignById(id);
+    }
+
+    public void deleteCampaign(Campaign campaign) {
+        campaignRepository.delete(campaign);
+    }
 }
