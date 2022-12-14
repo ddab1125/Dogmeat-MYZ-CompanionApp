@@ -253,6 +253,7 @@
         </div>
         <form:hidden path="id"/>
         <button type="submit" name="submitArmor"><spring:message code="basic.save"/></button>
+        <button type="submit" name="submitMChar" class="block"><spring:message code="basic.save"/></button>
         </form:form>
     </div>
 
@@ -272,7 +273,7 @@
                     <tr>
                         <td>${item.itemName}
                             <spring:message code="item.quantity"/>: <form:input path="itemQuantity" type="number"
-                                                                                value="${item.itemQuantity}"/>
+                                                                                value="${item.itemQuantity}" min="1"/>
                             <form:hidden path="id" value="${item.id}"/>
                             <form:hidden path="itemName" value="${item.itemName}"/>
                             <form:hidden path="itemWeight" value="${item.itemWeight}"/>
@@ -310,7 +311,7 @@
         <br>
         <div>
             <form:form action="/user/character/equipment/add" method="POST" modelAttribute="eq">
-                <form:input path="itemName" type="text"/>
+                <form:input path="itemName" type="text" required="true"/>
                 <spring:message code="item.quantity"/>
                 <form:input path="itemQuantity" type="number" min="1"/>
                 <spring:message code="item.weight"/>
@@ -349,13 +350,13 @@
             <form:form method="POST" action="/user/character/weapon/add" modelAttribute="weapon">
 
                 <spring:message code="item.weapon"/>
-                <form:input path="weaponName" type="text"/>
+                <form:input path="weaponName" type="text" required="true"/>
                 <br>
                 <spring:message code="item.weaponbonus"/>
-                <form:input path="weaponBonus" type="number"/>
+                <form:input path="weaponBonus" type="number" min="0"/>
 
                 <spring:message code="item.weapondamage"/>
-                <form:input path="weaponDamage" type="number"/>
+                <form:input path="weaponDamage" type="number" min="1"/>
                 <br>
                 <spring:message code="item.weaponrange"/>
                 <form:select path="weaponRange">
@@ -368,12 +369,10 @@
                 <form:input path="weaponSpecial" type="text"/>
 
                 <spring:message code="item.weight"/>
-                <form:input path="weaponWeight" type="number" step="0.25"/>
+                <form:input path="weaponWeight" type="number" step="0.25" min="0.25"/>
                 <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
                 <button type="submit" name="submitWeapon"><spring:message code="basic.add"/></button>
         </div>
-
-        <button type="submit" name="submitMChar" class="block"><spring:message code="basic.save"/></button>
 
         </form:form>
     </div>
