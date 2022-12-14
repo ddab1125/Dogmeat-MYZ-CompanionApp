@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.armor.service.ArmorService;
-import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.service.CharacterService;
@@ -122,7 +121,6 @@ public class UserCharacterController {
             @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
             @ModelAttribute("weapon") Weapon weapon) {
 
-        List<Equipment> equipmentList;
         Set<Mutation> mutationList;
         Set<Talent> talentList;
 
@@ -155,6 +153,7 @@ public class UserCharacterController {
         mCharacterDetails.setUser(currentUser.getUser());
         characterService.save(mCharacterDetails);
         model.addAttribute("mCharDetails", mCharacterDetails);
+
 
         return ("redirect:/user/character/details/" + mCharacterDetails.getId());
     }

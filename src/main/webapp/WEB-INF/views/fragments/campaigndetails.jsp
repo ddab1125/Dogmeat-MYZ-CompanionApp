@@ -13,6 +13,7 @@
     <h3>
         ${campaign.campaignName}
     </h3>
+    ${campaign.campaignDescription}
 </div>
 
 

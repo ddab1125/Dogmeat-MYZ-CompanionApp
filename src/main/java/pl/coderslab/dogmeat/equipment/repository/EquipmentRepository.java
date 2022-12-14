@@ -1,13 +1,9 @@
 package pl.coderslab.dogmeat.equipment.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;
-
-import java.util.List;
 
 @Repository
 @Transactional

@@ -11,7 +11,6 @@ import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
 
-
 import javax.persistence.*;
 import java.util.*;
 

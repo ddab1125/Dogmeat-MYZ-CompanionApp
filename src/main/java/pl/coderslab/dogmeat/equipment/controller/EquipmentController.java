@@ -15,7 +15,6 @@ import pl.coderslab.dogmeat.talent.entity.Talent;
 import pl.coderslab.dogmeat.talent.service.TalentService;
 import pl.coderslab.dogmeat.weapon.entity.Weapon;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

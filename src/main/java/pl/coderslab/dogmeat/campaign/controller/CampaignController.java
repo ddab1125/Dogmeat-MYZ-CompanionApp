@@ -20,6 +20,7 @@ public class CampaignController {
 
     private final CampaignService campaignService;
     private final CharacterService characterService;
+    private final UserService userService;
 
     @ModelAttribute("campaignList")
     public List<Campaign> getCampaignsList(@AuthenticationPrincipal CurrentUser currentUser) {
@@ -58,10 +59,12 @@ public class CampaignController {
                                               @PathVariable Long mCharId) {
         Campaign campaignToEdit = campaignService.findCampaignById(campaignId);
         campaignToEdit.getMCharacters().remove(characterService.findMCharacterById(mCharId));
+        campaignToEdit.getPlayers().remove(userService.findUserById(characterService.findMCharacterById(mCharId).getUser().getId()));
         campaignService.saveCampaign(campaignToEdit);
 
         return "redirect:/user/campaign/";
     }
+
 
 
 }

@@ -5,9 +5,9 @@
 
 
 <div>
-    STEP 3
+    <spring:message code="user.characters"/>
     <form action="/user/campaign/new/finish" method="post">
-                <select multiple name="characters">
+                <select multiple name="characters" required>
                     <c:forEach items="${mCharacters}" var="mChars">
                         <c:forEach items="${mChars}" var="mChar">
                             <option value="${mChar.id}">${mChar.name}</option>
@@ -16,12 +16,14 @@
                 </select>
 
         <input type="hidden" name="campaignName" value="${campaignName}">
+        <input type="hidden" name="campaignDescription" value="${campaignDescription}">
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <c:forEach items="${players}" var="player">
             <input type="hidden" name="players" value="${player}"/>
         </c:forEach>
 
-        <input type="submit">
+            <button type="submit"><spring:message code="basic.nextstep"/></button>
+
     </form>
 
 </div>

@@ -1,15 +1,15 @@
 package pl.coderslab.dogmeat.character.service;
 
 import lombok.Data;
-import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
+import pl.coderslab.dogmeat.armor.service.ArmorService;
 import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
-import pl.coderslab.dogmeat.character.repository.CharacterRepository;
-import pl.coderslab.dogmeat.character.util.CharacterNames;
-import pl.coderslab.dogmeat.character.util.CharacterDescriptions;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
+import pl.coderslab.dogmeat.character.repository.CharacterRepository;
+import pl.coderslab.dogmeat.character.util.CharacterDescriptions;
+import pl.coderslab.dogmeat.character.util.CharacterNames;
 import pl.coderslab.dogmeat.user.entity.User;
 
 import java.util.List;
@@ -23,6 +23,7 @@ public class CharacterService {
 
     private final CharacterRepository characterRepository;
     private final CampaignService campaignService;
+    private final ArmorService armorService;
 
     public List<MCharacter> findMCharacterByUserId(Long userId) {
         return characterRepository.findMCharacterByUserId(userId);
@@ -55,6 +56,7 @@ public class CharacterService {
         mCharacter.setDescription(CharacterDescriptions.getRandomDescription());
         return mCharacter;
     }
+
 
     public boolean isGm(User user, MCharacter mChar) {
         List<Campaign> allGmCampaignsByPlayer = campaignService.findAllGmCampaignsByPlayer(user.getId());

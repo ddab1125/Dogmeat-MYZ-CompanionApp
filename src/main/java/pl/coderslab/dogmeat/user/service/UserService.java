@@ -5,10 +5,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.coderslab.dogmeat.user.Dto.UserDto;
 import pl.coderslab.dogmeat.role.entity.Role;
-import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.role.repository.RoleRepository;
+import pl.coderslab.dogmeat.user.Dto.UserDto;
+import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.user.repository.UserRepository;
 
 import java.util.Arrays;
@@ -18,17 +18,19 @@ import java.util.List;
 @Service
 @Data
 @RequiredArgsConstructor
-public class UserService{
+public class UserService {
 
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-
     public User findByUsername(String name) {
         return userRepository.findUserByUsername(name);
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
 
     public void saveUser(UserDto userDto) {
         User user = new User();
@@ -36,7 +38,7 @@ public class UserService{
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         user.setEmail(userDto.getEmail());
         user.setEnabled(1);
-        Role userRole = roleRepository.findByName("ROLE_USER");
+        Role userRole = roleRepository.findByName("player");
         user.setRoles(new HashSet<>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
@@ -45,7 +47,7 @@ public class UserService{
         userRepository.save(user);
     }
 
-    public List<User> findAll(){
+    public List<User> findAll() {
         return userRepository.findAll();
     }
 
@@ -53,8 +55,9 @@ public class UserService{
         return userRepository.findUserById(id);
     }
 
-    public List<User> findUserStartsWith(String name){
+    public List<User> findUserStartsWith(String name) {
         return userRepository.findUsersByUsernameStartsWithIgnoreCase(name);
     }
+
 
 }

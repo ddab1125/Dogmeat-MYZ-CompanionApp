@@ -252,7 +252,7 @@
 
         </div>
         <form:hidden path="id"/>
-        <button type="submit" name="submitMChar"><spring:message code="basic.save"/></button>
+        <button type="submit" name="submitArmor"><spring:message code="basic.save"/></button>
         </form:form>
     </div>
 
@@ -371,8 +371,11 @@
                 <form:input path="weaponWeight" type="number" step="0.25"/>
                 <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
                 <button type="submit" name="submitWeapon"><spring:message code="basic.add"/></button>
-            </form:form>
         </div>
+
+        <button type="submit" name="submitMChar" class="block"><spring:message code="basic.save"/></button>
+
+        </form:form>
     </div>
 
 
