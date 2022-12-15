@@ -63,6 +63,10 @@ public class UserCharacterController {
 
         MCharacter mChar = characterService.findMCharacterById(id);
 
+        if (mChar == null) {
+            return "redirect:/user/list";
+        }
+
 
         List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
         model.addAttribute("eqList", mChar.getEquipment());

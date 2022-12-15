@@ -10,7 +10,7 @@
                 <select multiple name="characters" required>
                     <c:forEach items="${mCharacters}" var="mChars">
                         <c:forEach items="${mChars}" var="mChar">
-                            <option value="${mChar.id}">${mChar.name}</option>
+                            <option value="${mChar.id}"> ${mChar.name} || <spring:message code="user.player"/>  ${mChar.user.username}</option>
                         </c:forEach>
                     </c:forEach>
                 </select>
