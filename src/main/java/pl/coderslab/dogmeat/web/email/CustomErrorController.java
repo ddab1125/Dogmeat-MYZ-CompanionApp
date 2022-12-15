@@ -26,6 +26,6 @@ public class CustomErrorController implements ErrorController {
             }
         }
 
-        return "errors/403";
+        return "errors/error";
     }
 }
