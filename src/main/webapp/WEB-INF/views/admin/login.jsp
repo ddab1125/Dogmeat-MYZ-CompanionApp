@@ -8,7 +8,7 @@
     <jsp:include page="../fragments/navbar.jsp"/>
 </head>
 <body>
-<div class="center" style="margin-top: 1%">
+<div class="center" style="margin-top: 1%" >
 <sec:authorize access="isAnonymous()">
     <div>
         <form method="post">

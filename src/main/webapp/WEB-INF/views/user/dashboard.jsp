@@ -15,7 +15,7 @@
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
 
     <sec:authorize access="isAuthenticated()">
-        <p>Witaj <sec:authentication property="principal.username"/>!</p>
+        <p><spring:message code="basic.hello"/> <sec:authentication property="principal.username"/>!</p>
     </sec:authorize>
     <div>
 

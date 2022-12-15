@@ -64,7 +64,7 @@ public class UserCharacterController {
         MCharacter mChar = characterService.findMCharacterById(id);
 
         if (mChar == null) {
-            return "redirect:/user/list";
+            return "redirect:/404";
         }
 
 
