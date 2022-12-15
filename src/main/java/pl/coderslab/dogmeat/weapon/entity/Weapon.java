@@ -1,6 +1,5 @@
 package pl.coderslab.dogmeat.weapon.entity;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import pl.coderslab.dogmeat.equipment.entity.Equipment;

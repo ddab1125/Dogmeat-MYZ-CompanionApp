@@ -4,7 +4,6 @@ package pl.coderslab.dogmeat.character.util;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-
 import java.util.List;
 import java.util.Random;
 

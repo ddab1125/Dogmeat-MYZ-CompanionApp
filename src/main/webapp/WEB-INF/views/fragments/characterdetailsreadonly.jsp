@@ -209,7 +209,7 @@
                     <form:option value="${talent.id}"><spring:message code="talent.${talent.talentName}"/></form:option>
                 </c:forEach> <br>
             </form:select>
-            <button type="submit" name="submitTalent"><spring:message code="basic.add"/></button>
+
             <ol>
                 <c:forEach items="${mCharDetails.talents}" var="talent">
                     <li><spring:message code="talent.${talent.talentName}"/></li>
@@ -225,7 +225,7 @@
                             code="mutation.${mutation.mutationName}"/></form:option>
                 </c:forEach>
             </form:select>
-            <button type="submit" name="submitMutation"><spring:message code="basic.add"/></button>
+
             <ol>
                 <c:forEach items="${mCharDetails.mutations}" var="mutation">
                     <li><spring:message code="mutation.${mutation.mutationName}"/></li>
@@ -254,7 +254,7 @@
 
         </div>
         <form:hidden path="id"/>
-        <button type="submit" name="submitMChar"><spring:message code="basic.save"/></button>
+
         </form:form>
     </div>
 
@@ -283,7 +283,7 @@
                             <spring:message code="item.weight"/>: <c:out
                                     value="${item.itemQuantity * item.itemWeight}"/>
                             </td>
-                        <td><button type="submit" name="updateEq"><spring:message code="basic.save"/></button></td>
+
                         <td><a href="/user/character/equipment/delete/${mCharDetails.id}/${item.id}"><spring:message
                                 code="basic.delete"/></a></td>
                     </tr>
@@ -320,7 +320,7 @@
 
 
                 <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
-                <button type="submit" name="submitEq"><spring:message code="basic.add"/></button>
+
             </form:form>
         </div>
         <div>
@@ -372,7 +372,7 @@
                 <spring:message code="item.weight"/>
                 <form:input path="weaponWeight" type="number" step="0.25"/>
                 <input type="hidden" name="mCharId" value="${mCharDetails.id}"/>
-                <button type="submit" name="submitWeapon"><spring:message code="basic.add"/></button>
+
             </form:form>
         </div>
     </div>

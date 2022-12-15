@@ -1,16 +1,18 @@
 package pl.coderslab.dogmeat.user.Dto;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
 import pl.coderslab.dogmeat.validator.PasswordMatches;
+import pl.coderslab.dogmeat.validator.UniqueEmail;
+import pl.coderslab.dogmeat.validator.UniqueUsername;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 @Data
 @PasswordMatches
+@UniqueUsername
+@UniqueEmail
 public class UserDto {
 
     @NotNull

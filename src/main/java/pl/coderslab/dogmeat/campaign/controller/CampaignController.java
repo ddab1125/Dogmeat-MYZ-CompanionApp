@@ -4,12 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
+import pl.coderslab.dogmeat.character.service.CharacterService;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.user.service.UserService;
 
@@ -21,6 +19,7 @@ import java.util.List;
 public class CampaignController {
 
     private final CampaignService campaignService;
+    private final CharacterService characterService;
     private final UserService userService;
 
     @ModelAttribute("campaignList")
@@ -54,6 +53,18 @@ public class CampaignController {
 
         return "user/campaigndetails";
     }
+
+    @RequestMapping("/character/delete/{campaignId}/{mCharId}")
+    public String deleteCharacterFromCampaign(@PathVariable Long campaignId,
+                                              @PathVariable Long mCharId) {
+        Campaign campaignToEdit = campaignService.findCampaignById(campaignId);
+        campaignToEdit.getMCharacters().remove(characterService.findMCharacterById(mCharId));
+        campaignToEdit.getPlayers().remove(userService.findUserById(characterService.findMCharacterById(mCharId).getUser().getId()));
+        campaignService.saveCampaign(campaignToEdit);
+
+        return "redirect:/user/campaign/";
+    }
+
 
 
 }

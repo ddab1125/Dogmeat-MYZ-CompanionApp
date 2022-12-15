@@ -6,8 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.armor.service.ArmorService;
-import pl.coderslab.dogmeat.campaign.entity.Campaign;
-import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.enums.CharacterRole;
 import pl.coderslab.dogmeat.character.service.CharacterService;
@@ -23,7 +21,6 @@ import pl.coderslab.dogmeat.weapon.enums.WeaponRange;
 
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/user")
@@ -35,7 +32,6 @@ public class UserCharacterController {
     private final TalentService talentService;
     private final ArmorService armorService;
 
-    private final CampaignService campaignService;
 
 
     @ModelAttribute("rolesList")
@@ -67,6 +63,10 @@ public class UserCharacterController {
 
         MCharacter mChar = characterService.findMCharacterById(id);
 
+        if (mChar == null) {
+            return "redirect:/user/list";
+        }
+
 
         List<Long> charactersIds = characterService.findMcharactersIdByUserId(user.getId());
         model.addAttribute("eqList", mChar.getEquipment());
@@ -85,7 +85,6 @@ public class UserCharacterController {
 
 
     }
-
 
 
     @RequestMapping("/character/delete/{mCharId}/confirm")
@@ -113,7 +112,7 @@ public class UserCharacterController {
     public String newCharacter(Model model) {
         model.addAttribute("mChar", new MCharacter());
 
-        return ("/fragments/charactersheet");
+        return ("/user/characternew");
 
     }
 
@@ -126,7 +125,6 @@ public class UserCharacterController {
             @ModelAttribute("mCharDetails") MCharacter mCharacterDetails,
             @ModelAttribute("weapon") Weapon weapon) {
 
-        List<Equipment> equipmentList;
         Set<Mutation> mutationList;
         Set<Talent> talentList;
 
@@ -159,6 +157,7 @@ public class UserCharacterController {
         mCharacterDetails.setUser(currentUser.getUser());
         characterService.save(mCharacterDetails);
         model.addAttribute("mCharDetails", mCharacterDetails);
+
 
         return ("redirect:/user/character/details/" + mCharacterDetails.getId());
     }

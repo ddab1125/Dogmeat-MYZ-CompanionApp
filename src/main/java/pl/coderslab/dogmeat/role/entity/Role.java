@@ -2,8 +2,10 @@ package pl.coderslab.dogmeat.role.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
-import javax.validation.constraints.Size;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Data

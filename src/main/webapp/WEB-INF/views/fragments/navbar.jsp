@@ -15,8 +15,6 @@
     <a href="/"><i class="fa-solid fa-home"></i></a>
     <a href="/char/random"><i class="fa-solid fa-dice"></i></a>
     <a href="/user/dashboard"><i class="fa-solid fa-user"></i></a>
-
-
 </div>
 
 </body>

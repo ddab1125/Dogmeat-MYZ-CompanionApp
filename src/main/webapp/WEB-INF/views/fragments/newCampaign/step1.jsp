@@ -5,13 +5,27 @@
 
 
 <div>
-    STEP 1
-    <form action="/user/campaign/new/step2" method="post">
-        <input type="text" name="campaignName">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        <input type="submit">
+    <form action="/user/campaign/new/step2" method="post" id="form">
+        <table>
+
+            <tr>
+                <td>
+                    <spring:message code="basic.campaignName"/>
+                    <input type="text" name="campaignName" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <spring:message code="basic.campaigndescription"/>
+                    <input type="text" name="campaignDescription">
+                </td>
+            </tr>
+
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+
+        </table>
+        <button type="submit"><spring:message code="basic.nextstep"/></button>
     </form>
-
-
 </div>
 

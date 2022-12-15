@@ -18,7 +18,10 @@ public class Campaign {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String campaignName;
+
+    private String campaignDescription;
 
     @ManyToOne
     @JoinColumn(name = "gm_id")

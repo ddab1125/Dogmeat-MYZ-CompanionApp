@@ -1,19 +1,16 @@
 package pl.coderslab.dogmeat.validator;
 
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 
-import static java.lang.annotation.ElementType.TYPE;
-
-@Constraint(validatedBy = PasswordMatchesValidator.class)
-@Target({TYPE})
+@Constraint(validatedBy = UniqueEmailValidator.class)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface PasswordMatches {
-    String message() default "{passwordMatches.error.message}";
+public @interface UniqueEmail {
+
+    String message() default "{uniqueEmailValidator.error.message}";
+
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
 }

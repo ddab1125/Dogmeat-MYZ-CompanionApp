@@ -8,8 +8,9 @@
     <jsp:include page="../fragments/navbar.jsp"/>
 </head>
 <body>
+<div class="center" style="margin-top: 1%">
 <sec:authorize access="isAnonymous()">
-    <div class="center">
+    <div>
         <form method="post">
             <div class="center"><label style="text-align: center"> User Name : <input type="text" name="username"/>
             </label></div>
@@ -38,5 +39,6 @@
         </form>
     </div>
 </sec:authorize>
+</div>
 </body>
 </html>
