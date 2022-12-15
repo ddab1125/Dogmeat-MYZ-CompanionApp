@@ -35,7 +35,7 @@ public class CampaignController {
 
     @RequestMapping()
     public String campaignList() {
-        return "user/campaignlist";
+        return "user/campaign/campaignlist";
     }
 
 
@@ -51,7 +51,7 @@ public class CampaignController {
         model.addAttribute("campaign", campaignService.findCampaignById(id));
         model.addAttribute("campaignCharacterList", campaignService.getCampaignCharacterList(id));
 
-        return "user/campaigndetails";
+        return "user/campaign/campaigndetails";
     }
 
     @RequestMapping("/character/delete/{campaignId}/{mCharId}")

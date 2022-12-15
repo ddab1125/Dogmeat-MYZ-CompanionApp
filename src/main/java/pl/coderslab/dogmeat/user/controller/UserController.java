@@ -48,7 +48,7 @@ public class UserController {
     @RequestMapping("/list")
     public String userCharacterList(Model model) {
         model.getAttribute("mCharacters");
-        return ("/user/characterslist");
+        return ("user/character/characterslist");
     }
 
     @PostMapping("/role")

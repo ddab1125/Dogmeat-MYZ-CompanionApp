@@ -9,7 +9,6 @@
 </head>
 <body>
     <jsp:include page="fragments/navbar.jsp"/>
-
-
+</div>
 </body>
 </html>
