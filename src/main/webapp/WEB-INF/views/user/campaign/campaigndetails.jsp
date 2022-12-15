@@ -8,13 +8,13 @@
     <title><spring:message code="app.title"/></title>
 </head>
 <body>
-<jsp:include page="../fragments/navbar.jsp"/>
+<jsp:include page="../../fragments/navbar.jsp"/>
 
-<jsp:include page="../fragments/dash.jsp"/>
+<jsp:include page="../../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
     <div class="container">
-        <jsp:include page="../fragments/campaigndetails.jsp"/>
+        <jsp:include page="../../fragments/campaigndetails.jsp"/>
         <table>
             <tr>
                 <td><spring:message code="basic.name"/></td>

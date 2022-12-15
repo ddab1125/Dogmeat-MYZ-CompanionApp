@@ -77,10 +77,10 @@ public class UserCharacterController {
 
         if (charactersIds.contains(id) || characterService.isGm(user, mChar)) {
 
-            return ("/user/characterdetails");
+            return ("user/character/characterdetails");
         } else {
 
-            return ("/user/characterdetailsreadonly");
+            return ("user/character/characterdetailsreadonly");
         }
 
 
@@ -112,7 +112,7 @@ public class UserCharacterController {
     public String newCharacter(Model model) {
         model.addAttribute("mChar", new MCharacter());
 
-        return ("/user/characternew");
+        return ("user/character/characternew");
 
     }
 
@@ -134,7 +134,7 @@ public class UserCharacterController {
             MCharacter carrier = characterService.findMCharacterById(mCharacterDetails.getId());
             mCharacterDetails.setName(carrier.getName());
             mCharacterDetails.setProfession(carrier.getProfession());
-            mCharacterDetails.setUser(currentUser.getUser());
+            mCharacterDetails.setUser(carrier.getUser());
             mCharacterDetails.setEquipment(carrier.getEquipment());
             mCharacterDetails.setWeapons(carrier.getWeapons());
             mutationList = mCharacterDetails.getMutations();
