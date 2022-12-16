@@ -33,5 +33,4 @@
             </tr>
         </c:forEach>
     </table>
-    <button><a href="/user/campaign/addplayer">Add</a></button>
 </div>
