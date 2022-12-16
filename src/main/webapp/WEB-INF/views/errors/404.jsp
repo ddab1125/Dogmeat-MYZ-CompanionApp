@@ -10,12 +10,12 @@
 <body style="background-color: black">
 <a href="/">
 <p style="text-align:center;">
-  <img src="/images/error.jpg">
-<div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%)">
-    <h1 style="color: black; font-size: 160px">404</h1>
-</div>
+  <img src="/images/404.jpg">
+<%--<div style="position: absolute; top: 40%; left: 50%; transform: translate(-50%, -50%)">--%>
+<%--    <h1 style="color: black; font-size: 160px">404</h1>--%>
+<%--</div>--%>
 <div style="position: absolute; top: 60%; left: 50%; transform: translate(-50%, -50%)">
-    <h2 style="color: white; font-size: 50px; text-align: center"><spring:message code="app.somethingwentwrong"/></h2>
+    <h2 style="color: white; font-size: 50px; text-align: center"><spring:message code="app.404"/></h2>
 </div>
 
 </p>

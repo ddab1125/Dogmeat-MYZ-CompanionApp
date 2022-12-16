@@ -20,5 +20,10 @@
         </form>
     </div>
 </sec:authorize>
+<c:if test= "${not empty confirm}">
+   ${mChar.name} <spring:message code="basic.charadded"/>
+</c:if>
+
+
 </body>
 </html>

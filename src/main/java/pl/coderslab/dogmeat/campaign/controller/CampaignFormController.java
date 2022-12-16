@@ -88,7 +88,6 @@ public class CampaignFormController {
         campaign.setPlayers(players.stream().map(p -> userService.findUserById(p)).collect(Collectors.toList()));
         campaign.setMCharacters(characters.stream().map(c -> characterService.findMCharacterById(c)).collect(Collectors.toSet()));
         campaign.setGameMaster(currentUser.getUser());
-        System.out.println(campaignDescription);
         campaign.setCampaignDescription(campaignDescription);
 
         campaignService.saveCampaign(campaign);
@@ -124,6 +123,5 @@ public class CampaignFormController {
 
         return "user/campaign/step2";
     }
-
 
 }

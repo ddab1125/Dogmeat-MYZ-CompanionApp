@@ -33,6 +33,7 @@ public class CharacterController {
     @PostMapping("char/random")
     public String saveRandomMCharacter(Model model, @AuthenticationPrincipal CurrentUser currentUser) {
         MCharacter mChar = (MCharacter) model.getAttribute("mChar");
+        model.addAttribute("confirm", "charAdded");
         mChar.setUser(currentUser.getUser());
         characterRepository.save(mChar);
 

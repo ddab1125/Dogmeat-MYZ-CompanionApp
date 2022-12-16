@@ -13,19 +13,33 @@
 <jsp:include page="../fragments/dash.jsp"/>
 
 <div style="margin-left:15%;padding:1px 5px;height:1000px;">
+    <div class="container">
+        <div class="div1">
+            <sec:authorize access="isAuthenticated()">
+                <p><spring:message code="basic.hello"/> <sec:authentication property="principal.username"/>!</p>
+                <table>
+                    <thead><spring:message code="basic.yourroles"/></thead>
+                <c:forEach items="${userRoles}" var="role">
+                    <tr>
+                        <td>
+                            <spring:message code="app.${role.name}"/>
+                        </td>
+                    </tr>
+                </c:forEach>
 
-    <sec:authorize access="isAuthenticated()">
-        <p><spring:message code="basic.hello"/> <sec:authentication property="principal.username"/>!</p>
-    </sec:authorize>
-    <div>
+                </table>
+            </sec:authorize>
+            <form action="<c:url value="/logout"/>" method="POST">
+                <input class="center" type="submit" value="Wyloguj">
+                <input class="center" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+            </form>
+        </div>
+        <div class="div3">
+            <jsp:include page="../fragments/manageuser.jsp"/>
 
-        <jsp:include page="../fragments/manageuser.jsp"/>
-        <form action="<c:url value="/logout"/>" method="POST">
-            <input class="center" type="submit" value="Wyloguj">
-            <input class="center" type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
+        </div>
+
     </div>
-
 </div>
 </body>
 </html>
