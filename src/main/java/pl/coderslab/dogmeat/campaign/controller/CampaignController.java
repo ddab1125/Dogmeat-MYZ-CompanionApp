@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.service.CharacterService;
+import pl.coderslab.dogmeat.user.Dto.UserCampaignDto;
+import pl.coderslab.dogmeat.user.mapper.UserMapper;
 import pl.coderslab.dogmeat.user.service.CurrentUser;
 import pl.coderslab.dogmeat.user.service.UserService;
 
+import java.util.HashSet;
 import java.util.List;
 
 @Controller
@@ -21,6 +24,14 @@ public class CampaignController {
     private final CampaignService campaignService;
     private final CharacterService characterService;
     private final UserService userService;
+
+    @ModelAttribute("playersList")
+    public List<UserCampaignDto> getAllPlayers() {
+        return userService.findAll()
+                .stream()
+                .map(UserMapper.INSTANCE::userToUserCampaignDto)
+                .toList();
+    }
 
     @ModelAttribute("campaignList")
     public List<Campaign> getCampaignsList(@AuthenticationPrincipal CurrentUser currentUser) {
@@ -64,7 +75,6 @@ public class CampaignController {
 
         return "redirect:/user/campaign/";
     }
-
 
 
 }
