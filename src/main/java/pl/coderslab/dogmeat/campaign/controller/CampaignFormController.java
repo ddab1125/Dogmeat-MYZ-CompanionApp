@@ -12,6 +12,7 @@ import pl.coderslab.dogmeat.campaign.entity.Campaign;
 import pl.coderslab.dogmeat.campaign.service.CampaignService;
 import pl.coderslab.dogmeat.character.entity.MCharacter;
 import pl.coderslab.dogmeat.character.service.CharacterService;
+import pl.coderslab.dogmeat.role.service.RoleService;
 import pl.coderslab.dogmeat.user.Dto.UserCampaignDto;
 import pl.coderslab.dogmeat.user.entity.User;
 import pl.coderslab.dogmeat.user.mapper.UserMapper;
@@ -31,12 +32,13 @@ public class CampaignFormController {
     private final CampaignService campaignService;
 
     private final CharacterService characterService;
+    private final RoleService roleService;
 
     private HashSet<Long> currentPlayers;
 
     @ModelAttribute("playersList")
     public List<UserCampaignDto> getAllPlayers() {
-        return userService.findAll()
+        return userService.findAllUsersByRole(roleService.findRoleByName("player"))
                 .stream()
                 .map(UserMapper.INSTANCE::userToUserCampaignDto)
                 .toList();
