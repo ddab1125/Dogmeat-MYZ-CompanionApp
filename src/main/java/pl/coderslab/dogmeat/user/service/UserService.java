@@ -59,5 +59,9 @@ public class UserService {
         return userRepository.findUsersByUsernameStartsWithIgnoreCase(name);
     }
 
+    public List<User> findAllUsersByRole(Role role) {
+        return userRepository.findUsersByRolesContaining(role);
+    }
+
 
 }

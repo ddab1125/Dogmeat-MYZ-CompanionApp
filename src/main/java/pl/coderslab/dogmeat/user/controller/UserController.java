@@ -72,8 +72,9 @@ public class UserController {
         user.setRoles(new HashSet<>());
         roles.forEach(r -> user.getRoles().add(roleService.findRoleByName(r)));
         if (adminFlag == 1) {
+            user.getRoles().add(roleService.findRoleByName("admin"));
         }
-        user.getRoles().add(roleService.findRoleByName("admin"));
+
         userService.save(user);
 
 

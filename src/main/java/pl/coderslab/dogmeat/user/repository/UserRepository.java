@@ -19,6 +19,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUsersByUsernameStartsWithIgnoreCase(String username);
 
+    List<User> findUsersByRolesContaining(Role role);
 
 
 }
